@@ -91,3 +91,38 @@ Stack trace:
 #8 C:\xampp\htdocs\ci4_hrtest\system\CLI\Console.php(46): CodeIgniter\CLI\Commands->run('db:seed', Array)
 #9 C:\xampp\htdocs\ci4_hrtest\spark(102): CodeIgniter\CLI\Console->run()
 #10 {main}
+CRITICAL - 2024-04-22 08:16:52 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "exampl-page.php"
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(216): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('exampl-page.php')
+ 2 SYSTEMPATH\Router\RouteCollection.php(1117): CodeIgniter\View\View->render('exampl-page', null)
+ 3 SYSTEMPATH\CodeIgniter.php(890): CodeIgniter\Router\RouteCollection::CodeIgniter\Router\{closure}()
+ 4 SYSTEMPATH\CodeIgniter.php(489): CodeIgniter\CodeIgniter->startController()
+ 5 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\xampp\\htdocs\\ci4_hrtest\\public\\index.php')
+CRITICAL - 2024-04-22 08:37:34 --> ErrorException: include(backend/inc/right-sidebar): Failed to open stream: No such file or directory
+in APPPATH\Views\backend\layout\pages-layout.php on line 262.
+ 1 APPPATH\Views\backend\layout\pages-layout.php(262): CodeIgniter\Debug\Exceptions->errorHandler(2, 'include(backend/inc/right-sidebar): Failed to open stream: No such file or directory', 'C:\\xampp\\htdocs\\ci4_hrtest\\app\\Views\\backend\\layout\\pages-layout.php', 262)
+ 2 APPPATH\Views\backend\layout\pages-layout.php(262): include()
+ 3 SYSTEMPATH\View\View.php(228): include('C:\\xampp\\htdocs\\ci4_hrtest\\app\\Views\\backend\\layout\\pages-layout.php')
+ 4 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 5 SYSTEMPATH\View\View.php(244): CodeIgniter\View\View->render('backend/layout/pages-layout', null, true)
+ 6 SYSTEMPATH\Router\RouteCollection.php(1117): CodeIgniter\View\View->render('example-page', null)
+ 7 SYSTEMPATH\CodeIgniter.php(890): CodeIgniter\Router\RouteCollection::CodeIgniter\Router\{closure}()
+ 8 SYSTEMPATH\CodeIgniter.php(489): CodeIgniter\CodeIgniter->startController()
+ 9 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\xampp\\htdocs\\ci4_hrtest\\public\\index.php')
+CRITICAL - 2024-04-22 08:38:53 --> ErrorException: include(inc/right-sidebar): Failed to open stream: No such file or directory
+in APPPATH\Views\backend\layout\pages-layout.php on line 262.
+ 1 APPPATH\Views\backend\layout\pages-layout.php(262): CodeIgniter\Debug\Exceptions->errorHandler(2, 'include(inc/right-sidebar): Failed to open stream: No such file or directory', 'C:\\xampp\\htdocs\\ci4_hrtest\\app\\Views\\backend\\layout\\pages-layout.php', 262)
+ 2 APPPATH\Views\backend\layout\pages-layout.php(262): include()
+ 3 SYSTEMPATH\View\View.php(228): include('C:\\xampp\\htdocs\\ci4_hrtest\\app\\Views\\backend\\layout\\pages-layout.php')
+ 4 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 5 SYSTEMPATH\View\View.php(244): CodeIgniter\View\View->render('backend/layout/pages-layout', null, true)
+ 6 SYSTEMPATH\Router\RouteCollection.php(1117): CodeIgniter\View\View->render('example-page', null)
+ 7 SYSTEMPATH\CodeIgniter.php(890): CodeIgniter\Router\RouteCollection::CodeIgniter\Router\{closure}()
+ 8 SYSTEMPATH\CodeIgniter.php(489): CodeIgniter\CodeIgniter->startController()
+ 9 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\xampp\\htdocs\\ci4_hrtest\\public\\index.php')
