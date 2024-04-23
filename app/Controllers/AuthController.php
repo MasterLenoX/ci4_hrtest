@@ -82,6 +82,20 @@ class AuthController extends BaseController
             
         
         }
-
     }
+
+
+    public function forgotForm(){   
+        $data = array(
+            'pageTitle' => 'Forgot Password || CI4 Test HRIS',
+            'validation' => null,
+        );
+        return view('backend/pages/auth/forgot', $data);
+    }
+
+    public function sendPasswordResetLink(){
+        echo 'Send Password Link';
+    }
+
+
 }
