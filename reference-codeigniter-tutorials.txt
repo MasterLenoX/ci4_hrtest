@@ -1,0 +1,6 @@
+
+Build a blog with Codeigniter 4 - Step by Step
+https://www.youtube.com/playlist?list=PLX4adOBVJXavmNeP7CU295sX76jgzziio
+
+Cairocoders - CodeIgniter 4 and CodeIgniter 3
+https://www.youtube.com/playlist?list=PL193izPqf5X50qlF96VR6U99h9J5f4nW_
