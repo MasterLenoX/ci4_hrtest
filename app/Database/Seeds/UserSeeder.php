@@ -9,10 +9,10 @@ class UserSeeder extends Seeder
     public function run()
     {
         $data = array(
-            'name' => 'Test',
-            'email' => 'test_admin@fisherfarms.ph',
-            'username' => 'testadmin',
-            'password'=> password_hash('test12345', PASSWORD_BCRYPT),
+            'name' => 'Admin',
+            'email' => 'admin_ffi@fisherfarms.ph',
+            'username' => 'adminffi',
+            'password'=> password_hash('admin12345', PASSWORD_BCRYPT),
         );
 
         // array(
