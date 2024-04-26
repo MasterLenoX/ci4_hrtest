@@ -10,3 +10,7 @@ https://github.com/PHPMailer/PHPMailer/releases/tag/v6.8.0
 
 MAILTRAP Info for PHP Mailer
 https://mailtrap.io/home
+
+Nesbot/Carbon - A simple PHP API extension for DateTime.
+https://carbon.nesbot.com/
+

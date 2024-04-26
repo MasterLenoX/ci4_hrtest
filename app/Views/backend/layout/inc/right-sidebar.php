@@ -66,11 +66,11 @@
         </div> -->
       </div>
 
-      <div class="reset-options pt-30 text-center">
+      <!-- <div class="reset-options pt-30 text-center">
         <button class="btn btn-danger" id="reset-settings">
           Reset Settings
         </button>
-      </div>
+      </div> -->
     </div>
   </div>
 </div>

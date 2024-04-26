@@ -23,6 +23,19 @@ final class GeneratedConfig
     ),
     'version' => 'v1.4.2.70400',
   ),
+  'nesbot/carbon' => 
+  array (
+    'install_path' => 'C:\\xampp\\htdocs\\ci4_hrtest\\vendor/nesbot/carbon',
+    'relative_install_path' => '../../../nesbot/carbon',
+    'extra' => 
+    array (
+      'includes' => 
+      array (
+        0 => 'extension.neon',
+      ),
+    ),
+    'version' => '3.3.0',
+  ),
   'phpstan/phpstan-strict-rules' => 
   array (
     'install_path' => 'C:\\xampp\\htdocs\\ci4_hrtest\\vendor/phpstan/phpstan-strict-rules',
