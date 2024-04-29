@@ -15,6 +15,12 @@ $routes->group('admin', static function($routes){
     $routes->get('logout','AdminController::logoutHandler',['as'=>'admin.logout']);
     $routes->get('profile','AdminController::profile',['as'=>'admin.profile']);
     $routes->get('settings','AdminController::settings',['as'=>'settings']);
+
+
+    //Employee 
+
+
+    
   });
 
   $routes->group('',['filter'=>'cifilter:guest'], static function($routes){

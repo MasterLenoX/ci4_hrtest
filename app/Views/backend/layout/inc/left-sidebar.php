@@ -22,7 +22,7 @@
             <!-- <i class="icon-copy bi bi-people"></i> -->
           </a>
           <ul class="submenu">
-            <li><a href="#employee">Employee Management</a></li>
+            <li><a href="#employee">Employees Profile</a></li>
             <li><a href="#department">Department</a></li>
             <li><a href="#organization">Organization</a></li>
           </ul>
@@ -34,7 +34,7 @@
           </a>
           <ul class="submenu">
             <li><a href="javascript:;">Regular Cycle</a></li>
-            <li><a href="javascript:;">Payroll Reports</a></li>
+            <li><a href="javascript:;">Off-Cycle Reports</a></li>
             <li class="dropdown">
               <a href="javascript:;" class="dropdown-toggle">
                 <span class="micon bi bi-bank2"></span><span class="mtext">Government Routines</span>
@@ -46,8 +46,7 @@
                 <li><a href="javascript:;">GSIS</a></li>
               </ul>
             </li>
-            <li><a href="javascript:;">Overtime</a></li>
-            <li><a href="javascript:;">Additional & Corrections</a></li>
+            <li><a href="javascript:;">Payroll Reports</a></li>
           </ul>
         </li>
 
@@ -56,30 +55,30 @@
             <span class="micon dw dw-time-management"></span><span class="mtext"> Time & Attendance</span>
           </a>
           <ul class="submenu">
-            <li><a href="javascript:;">Attendance</a></li>
+            <li><a href="#attendance">Attendance</a></li>
             <li class="dropdown">
               <a href="javascript:;" class="dropdown-toggle">
                 <span class="micon ti-time"></span><span class="mtext">Leaves</span>
                 <!-- <span class="icon-copy"></span> -->
               </a>
               <ul class="submenu child">
-                <li><a href="javascript:;">Bereavement Leave</a></li>
-                <li><a href="javascript:;">Birthday Leave</a></li>
-                <li><a href="javascript:;">Emergency Leave</a></li>
-                <li><a href="javascript:;">Leave WithOut Pay</a></li>
-                <li><a href="javascript:;">Maternity Leave</a></li>
-                <li><a href="javascript:;">Paternity Leave</a></li>
-                <li><a href="javascript:;">Sick Leave</a></li>
-                <li><a href="javascript:;">Vacation Leave</a></li>
+                <li><a href="#Bleave">Bereavement Leave</a></li>
+                <li><a href="#bdayleave">Birthday Leave</a></li>
+                <li><a href="#eleave">Emergency Leave</a></li>
+                <li><a href="#lwop">Leave WithOut Pay</a></li>
+                <li><a href="#matleave">Maternity Leave</a></li>
+                <li><a href="#patleave">Paternity Leave</a></li>
+                <li><a href="#sleave">Sick Leave</a></li>
+                <li><a href="#vacleave">Vacation Leave</a></li>
               </ul>
             </li>
-            <li><a href="javascript:;">Overtime</a></li>
-            <li><a href="javascript:;">Additional & Corrections</a></li>
+            <li><a href="#overtime">Overtime</a></li>
+            <li><a href="#addcor">Additional & Corrections</a></li>
           </ul>
         </li>
 
         <li>
-          <a href="sitemap.html" class="dropdown-toggle no-arrow">
+          <a href="#" class="dropdown-toggle no-arrow">
             <span class="micon bi bi-diagram-3"></span><span class="mtext">Sitemap</span>
           </a>
         </li>
@@ -89,7 +88,7 @@
         </li>
 
         <li>
-          <div class="sidebar-small-cap">Developer tools</div>
+          <div class="sidebar-small-cap">General</div>
         </li>
         <li>
           <a href="javascript:;" class="dropdown-toggle">
