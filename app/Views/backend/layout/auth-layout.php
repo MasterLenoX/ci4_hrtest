@@ -16,7 +16,7 @@
 			rel="icon"
 			type="image/png"
 			sizes="16x16"
-			href="/images/fisherfarms_logo_icon.png"
+			href="/images/fisherfarms_logo_icon-grad.png"
 		/>
 
 
@@ -50,7 +50,7 @@
 			>
 				<div class="brand-logo">
 					<a href="login.html">
-						<img src="/images/fisherfarms_logo.png" alt="" />
+						<img src="/images/ffihris-logo-black.png" alt="" />
 					</a>
 				</div>
 				<div class="login-menu">

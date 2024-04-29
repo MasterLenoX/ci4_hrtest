@@ -101,7 +101,7 @@
         </li>
         <li>
           <a href="#settings" class="dropdown-toggle no-arrow">
-            <span class="micon bi bi-tools"></span><span class="mtext">Settings</span>
+            <span class="micon dw dw-settings1"></span><span class="mtext">Settings</span>
           </a>
         </li>
         <!-- <li>

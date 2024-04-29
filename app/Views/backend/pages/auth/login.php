@@ -3,8 +3,8 @@
 
 <div class="login-box bg-white box-shadow border-radius-10">
   <div class="login-title">
-    <img src="/images/fisherfarms_logo.png" alt="" />
-    <h2 class="text-center text-primary">HRIS Test</h2>
+    <img src="/images/ffihris-logo-black.png" alt="" />
+    <!-- <h2 class="text-center text-primary">HRIS Test</h2> -->
   </div>
 
   <?php $validation = \Config\Services::validation() ?>
