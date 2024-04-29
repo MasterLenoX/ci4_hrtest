@@ -7,22 +7,16 @@
 		<title><?= isset($pageTitle) ? $pageTitle : 'HRIS || New Page'; ?></title>
 
 		<!-- Site favicon -->
-		<link
-			rel="apple-touch-icon"
+		<!-- <link
+			rel="fisherfarms"
 			sizes="180x180"
-			href="/backend/vendors/images/apple-touch-icon.png"
-		/>
-		<link
-			rel="icon"
-			type="image/png"
-			sizes="32x32"
-			href="/backend/vendors/images/favicon-32x32.png"
-		/>
+			href="/images/fisherfarms_logo_icon.png"
+		/> -->
 		<link
 			rel="icon"
 			type="image/png"
 			sizes="16x16"
-			href="/backend/vendors/images/favicon-16x16.png"
+			href="/images/fisherfarms_logo_icon.png"
 		/>
 
 		<!-- Mobile Specific Metas -->

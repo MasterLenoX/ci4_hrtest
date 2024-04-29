@@ -10,6 +10,17 @@ class Email extends BaseConfig
     public string $fromName   = '';
     public string $recipients = '';
 
+
+    // $config = Array(
+    //     'protocol' => 'smtp',
+    //     'smtp_host' => 'sandbox.smtp.mailtrap.io',
+    //     'smtp_port' => 2525,
+    //     'smtp_user' => 'f8e6d5fa6813a2',
+    //     'smtp_pass' => '6c4c461f6e5166',
+    //     'crlf' => "\r\n",
+    //     'newline' => "\r\n"
+    //   );
+    
     /**
      * The "user agent"
      */
