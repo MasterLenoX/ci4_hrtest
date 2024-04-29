@@ -1,8 +1,8 @@
 <div class="left-side-bar">
   <div class="brand-logo">
     <a href="<?= route_to('admin.home') ?>">
-      <img src="/images/fisherfarms_logo.png" alt="" class="dark-logo" />
-      <img src="/images/fisherfarms_logo.png" alt="" class="light-logo" />
+      <img src="/images/ffihris-logo-light.png" alt="" class="dark-logo" />
+      <img src="/images/ffihris-logo-light.png" alt="" class="light-logo" />
     </a>
     <div class="close-sidebar" data-toggle="left-sidebar-close">
       <i class="ion-close-round"></i>
@@ -18,119 +18,100 @@
         </li>
         <li class="dropdown">
           <a href="javascript:;" class="dropdown-toggle">
-            <span class="micon bi bi-pie-chart"></span><span class="mtext">Charts</span>
+            <span class="micon dw dw-user-11"></span><span class="mtext"> 201 File</span>
+            <!-- <i class="icon-copy bi bi-people"></i> -->
           </a>
           <ul class="submenu">
-            <li><a href="highchart.html">Highchart</a></li>
-            <li><a href="knob-chart.html">jQuery Knob</a></li>
-            <li><a href="jvectormap.html">jvectormap</a></li>
-            <li><a href="apexcharts.html">Apexcharts</a></li>
-          </ul>
-        </li>
-        <li class="dropdown">
-          <a href="javascript:;" class="dropdown-toggle">
-            <span class="micon bi bi-file-earmark-text"></span><span class="mtext">Additional Pages</span>
-          </a>
-          <ul class="submenu">
-            <li><a href="video-player.html">Video Player</a></li>
-            <li><a href="login.html">Login</a></li>
-            <li><a href="forgot-password.html">Forgot Password</a></li>
-            <li><a href="reset-password.html">Reset Password</a></li>
-          </ul>
-        </li>
-        <li class="dropdown">
-          <a href="javascript:;" class="dropdown-toggle">
-            <span class="micon bi bi-bug"></span><span class="mtext">Error Pages</span>
-          </a>
-          <ul class="submenu">
-            <li><a href="400.html">400</a></li>
-            <li><a href="403.html">403</a></li>
-            <li><a href="404.html">404</a></li>
-            <li><a href="500.html">500</a></li>
-            <li><a href="503.html">503</a></li>
+            <li><a href="#employee">Employee Management</a></li>
+            <li><a href="#department">Department</a></li>
+            <li><a href="#organization">Organization</a></li>
           </ul>
         </li>
 
         <li class="dropdown">
           <a href="javascript:;" class="dropdown-toggle">
-            <span class="micon bi bi-back"></span><span class="mtext">Extra Pages</span>
+            <span class="micon bi bi-currency-dollar"></span><span class="mtext"> Payrolls & Slips</span>
           </a>
           <ul class="submenu">
-            <li><a href="blank.html">Blank</a></li>
-            <li><a href="contact-directory.html">Contact Directory</a></li>
-            <li><a href="blog.html">Blog</a></li>
-            <li><a href="blog-detail.html">Blog Detail</a></li>
-            <li><a href="product.html">Product</a></li>
-            <li><a href="product-detail.html">Product Detail</a></li>
-            <li><a href="faq.html">FAQ</a></li>
-            <li><a href="profile.html">Profile</a></li>
-            <li><a href="gallery.html">Gallery</a></li>
-            <li><a href="pricing-table.html">Pricing Tables</a></li>
-          </ul>
-        </li>
-        <li class="dropdown">
-          <a href="javascript:;" class="dropdown-toggle">
-            <span class="micon bi bi-hdd-stack"></span><span class="mtext">Multi Level Menu</span>
-          </a>
-          <ul class="submenu">
-            <li><a href="javascript:;">Level 1</a></li>
-            <li><a href="javascript:;">Level 1</a></li>
-            <li><a href="javascript:;">Level 1</a></li>
+            <li><a href="javascript:;">Regular Cycle</a></li>
+            <li><a href="javascript:;">Payroll Reports</a></li>
             <li class="dropdown">
               <a href="javascript:;" class="dropdown-toggle">
-                <span class="micon fa fa-plug"></span><span class="mtext">Level 2</span>
+                <span class="micon bi bi-bank2"></span><span class="mtext">Government Routines</span>
               </a>
               <ul class="submenu child">
-                <li><a href="javascript:;">Level 2</a></li>
-                <li><a href="javascript:;">Level 2</a></li>
+                <li><a href="javascript:;">SSS</a></li>
+                <li><a href="javascript:;">PhilHealth</a></li>
+                <li><a href="javascript:;">HDMF (Pag-Ibig)</a></li>
+                <li><a href="javascript:;">GSIS</a></li>
               </ul>
             </li>
-            <li><a href="javascript:;">Level 1</a></li>
-            <li><a href="javascript:;">Level 1</a></li>
-            <li><a href="javascript:;">Level 1</a></li>
+            <li><a href="javascript:;">Overtime</a></li>
+            <li><a href="javascript:;">Additional & Corrections</a></li>
           </ul>
         </li>
+
+        <li class="dropdown">
+          <a href="javascript:;" class="dropdown-toggle">
+            <span class="micon dw dw-time-management"></span><span class="mtext"> Time & Attendance</span>
+          </a>
+          <ul class="submenu">
+            <li><a href="javascript:;">Attendance</a></li>
+            <li class="dropdown">
+              <a href="javascript:;" class="dropdown-toggle">
+                <span class="micon ti-time"></span><span class="mtext">Leaves</span>
+                <!-- <span class="icon-copy"></span> -->
+              </a>
+              <ul class="submenu child">
+                <li><a href="javascript:;">Bereavement Leave</a></li>
+                <li><a href="javascript:;">Birthday Leave</a></li>
+                <li><a href="javascript:;">Emergency Leave</a></li>
+                <li><a href="javascript:;">Leave WithOut Pay</a></li>
+                <li><a href="javascript:;">Maternity Leave</a></li>
+                <li><a href="javascript:;">Paternity Leave</a></li>
+                <li><a href="javascript:;">Sick Leave</a></li>
+                <li><a href="javascript:;">Vacation Leave</a></li>
+              </ul>
+            </li>
+            <li><a href="javascript:;">Overtime</a></li>
+            <li><a href="javascript:;">Additional & Corrections</a></li>
+          </ul>
+        </li>
+
         <li>
           <a href="sitemap.html" class="dropdown-toggle no-arrow">
             <span class="micon bi bi-diagram-3"></span><span class="mtext">Sitemap</span>
           </a>
         </li>
-        <li>
-          <a href="chat.html" class="dropdown-toggle no-arrow">
-            <span class="micon bi bi-chat-right-dots"></span><span class="mtext">Chat</span>
-          </a>
-        </li>
-        <li>
-          <a href="invoice.html" class="dropdown-toggle no-arrow">
-            <span class="micon bi bi-receipt-cutoff"></span><span class="mtext">Invoice</span>
-          </a>
-        </li>
+
         <li>
           <div class="dropdown-divider"></div>
         </li>
+
         <li>
-          <div class="sidebar-small-cap">Extra</div>
+          <div class="sidebar-small-cap">Developer tools</div>
         </li>
         <li>
           <a href="javascript:;" class="dropdown-toggle">
-            <span class="micon bi bi-file-pdf"></span><span class="mtext">Documentation</span>
+            <span class="micon bi bi-file-person-fill"></span><span class="mtext">Profile</span>
           </a>
           <ul class="submenu">
-            <li><a href="introduction.html">Introduction</a></li>
-            <li><a href="getting-started.html">Getting Started</a></li>
-            <li><a href="color-settings.html">Color Settings</a></li>
-            <li>
-              <a href="third-party-plugins.html">Third Party Plugins</a>
-            </li>
+            <li><a href="<?= route_to('admin.profile') ?>">User Profile</a></li>
+            <li><a href="<?= route_to('settings') ?>">General Profile Settings</a></li>
           </ul>
         </li>
         <li>
+          <a href="#settings" class="dropdown-toggle no-arrow">
+            <span class="micon bi bi-tools"></span><span class="mtext">Settings</span>
+          </a>
+        </li>
+        <!-- <li>
           <a href="https://dropways.github.io/deskapp-free-single-page-website-template/" target="_blank" class="dropdown-toggle no-arrow">
             <span class="micon bi bi-layout-text-window-reverse"></span>
             <span class="mtext">Landing Page
               <img src="/backend/vendors/images/coming-soon.png" alt="" width="25" /></span>
           </a>
-        </li>
+        </li> -->
       </ul>
     </div>
   </div>

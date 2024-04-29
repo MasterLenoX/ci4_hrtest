@@ -21,4 +21,18 @@ class AdminController extends BaseController
         CIAuth::forget();
         return redirect()->route('admin.login.form')->with('info','You have successfully Logout');
     }
+
+    public function profile(){
+        $data = array(
+            'pageTitle' => 'My User Profile || CI4HRIS Test Page'
+        );
+        return view('backend/pages/users/profile', $data);
+    }
+
+    public function settings(){
+        $data = array(
+            'pageTitle' => 'General User Settings || CI4 HRIS Test' 
+        );
+        return view('backend/pages/users/settings', $data);
+    }
 }
