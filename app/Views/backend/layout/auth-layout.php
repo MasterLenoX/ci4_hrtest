@@ -50,7 +50,7 @@
 			>
 				<div class="brand-logo">
 					<a href="login.html">
-						<img src="/backend/vendors/images/deskapp-logo.svg" alt="" />
+						<img src="/images/fisherfarms_logo.png" alt="" />
 					</a>
 				</div>
 				<div class="login-menu">
