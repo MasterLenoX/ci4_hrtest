@@ -37,7 +37,7 @@
             <li><a href="javascript:;">Off-Cycle Reports</a></li>
             <li class="dropdown">
               <a href="javascript:;" class="dropdown-toggle">
-                <span class="micon bi bi-bank2"></span><span class="mtext">Government Routines</span>
+                <span class="micon bi bi-bank2"></span><span class="mtext">Gov't Routines</span>
               </a>
               <ul class="submenu child">
                 <li><a href="javascript:;">SSS</a></li>
