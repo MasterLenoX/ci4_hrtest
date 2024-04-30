@@ -18,13 +18,12 @@
         </li>
         <li class="dropdown">
           <a href="javascript:;" class="dropdown-toggle">
-            <span class="micon dw dw-user-11"></span><span class="mtext"> 201 File</span>
-            <!-- <i class="icon-copy bi bi-people"></i> -->
+            <span class="micon dw dw-user-2"></span><span class="mtext"> 201 File</span>
           </a>
           <ul class="submenu">
-            <li><a href="#employee">Employees Profile</a></li>
-            <li><a href="#department">Department</a></li>
-            <li><a href="#organization">Organization</a></li>
+            <li><a href="#employee"><span class="micon dw dw-user"></span>&nbsp; Employees Profile</a></li>
+            <li><a href="#department"><span class="micon dw dw-user-3"></span> Department</a></li>
+            <li><a href="#organization"><span class="micon dw dw-user-11"></span> Organization</a></li>
           </ul>
         </li>
 
@@ -33,20 +32,20 @@
             <span class="micon bi bi-currency-dollar"></span><span class="mtext"> Payrolls & Slips</span>
           </a>
           <ul class="submenu">
-            <li><a href="javascript:;">Regular Cycle</a></li>
-            <li><a href="javascript:;">Off-Cycle Reports</a></li>
+            <li><a href="javascript:;"><span class="micon dw dw-reload"></span> Regular Cycle</a></li>
+            <li><a href="javascript:;"><span class="micon dw dw-recycle-1"></span> Off-Cycle Reports</a></li>
             <li class="dropdown">
               <a href="javascript:;" class="dropdown-toggle">
                 <span class="micon bi bi-bank2"></span><span class="mtext">Gov't Routines</span>
               </a>
               <ul class="submenu child">
-                <li><a href="javascript:;">SSS</a></li>
-                <li><a href="javascript:;">PhilHealth</a></li>
-                <li><a href="javascript:;">HDMF (Pag-Ibig)</a></li>
-                <li><a href="javascript:;">GSIS</a></li>
+                <li><a href="javascript:;"><span class="micon bi bi-bank2"></span> SSS</a></li>
+                <li><a href="javascript:;"><span class="micon bi bi-bank2"></span> PhilHealth</a></li>
+                <li><a href="javascript:;"><span class="micon bi bi-bank2"></span> HDMF (Pag-Ibig)</a></li>
+                <li><a href="javascript:;"><span class="micon bi bi-bank2"></span> GSIS</a></li>
               </ul>
             </li>
-            <li><a href="javascript:;">Payroll Reports</a></li>
+            <li><a href="javascript:;"><span class="micon dw dw-analytics-22"></span> Payroll Reports</a></li>
           </ul>
         </li>
 
@@ -55,11 +54,10 @@
             <span class="micon dw dw-time-management"></span><span class="mtext"> Time & Attendance</span>
           </a>
           <ul class="submenu">
-            <li><a href="#attendance">Attendance</a></li>
+            <li><a href="#attendance"><span class="micon dw dw-time-management"></span> Attendance</a></li>
             <li class="dropdown">
               <a href="javascript:;" class="dropdown-toggle">
-                <span class="micon ti-time"></span><span class="mtext">Leaves</span>
-                <!-- <span class="icon-copy"></span> -->
+                <span class="micon dw dw-logout1"></span><span class="mtext">Leaves</span>
               </a>
               <ul class="submenu child">
                 <li><a href="#Bleave">Bereavement Leave</a></li>
@@ -72,8 +70,8 @@
                 <li><a href="#vacleave">Vacation Leave</a></li>
               </ul>
             </li>
-            <li><a href="#overtime">Overtime</a></li>
-            <li><a href="#addcor">Additional & Corrections</a></li>
+            <li><a href="#overtime"><span class="micon dw dw-counterclockwise"></span> Overtime</a></li>
+            <li><a href="#addcor"><span class="micon dw dw-checked"></span> Add & Corrections</a></li>
           </ul>
         </li>
 
@@ -95,8 +93,8 @@
             <span class="micon bi bi-file-person-fill"></span><span class="mtext">Profile</span>
           </a>
           <ul class="submenu">
-            <li><a href="<?= route_to('admin.profile') ?>">User Profile</a></li>
-            <li><a href="<?= route_to('settings') ?>">General Profile Settings</a></li>
+            <li><a href="<?= route_to('admin.profile') ?>"><span class="micon dw dw-user-2"></span> User Profile</a></li>
+            <li><a href="<?= route_to('settings') ?>"><span class="micon dw dw-user-11"></span> Profile Settings</a></li>
           </ul>
         </li>
         <li>

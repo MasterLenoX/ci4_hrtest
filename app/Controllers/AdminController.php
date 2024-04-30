@@ -8,6 +8,7 @@ use App\Libraries\CIAuth;
 
 class AdminController extends BaseController
 {
+    protected $helpers = ['url','form','CIMail','CIFunctions'];
     public function index()
     {
         // echo 'Admin Dashboard home';
