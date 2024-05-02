@@ -14,3 +14,5 @@ https://mailtrap.io/home
 Nesbot/Carbon - A simple PHP API extension for DateTime.
 https://carbon.nesbot.com/
 
+CodeIgniter 4 Login & Registration Tutorial
+https://www.youtube.com/playlist?list=PLYogo31AXFBONHR0WjlnhxN4ulRrF98aA

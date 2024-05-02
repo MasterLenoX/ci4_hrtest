@@ -60,14 +60,14 @@
                 <span class="micon dw dw-logout1"></span><span class="mtext">Leaves</span>
               </a>
               <ul class="submenu child">
-                <li><a href="#Bleave">Bereavement Leave</a></li>
-                <li><a href="#bdayleave">Birthday Leave</a></li>
-                <li><a href="#eleave">Emergency Leave</a></li>
-                <li><a href="#lwop">Leave WithOut Pay</a></li>
-                <li><a href="#matleave">Maternity Leave</a></li>
-                <li><a href="#patleave">Paternity Leave</a></li>
-                <li><a href="#sleave">Sick Leave</a></li>
-                <li><a href="#vacleave">Vacation Leave</a></li>
+                <li><a href="#Bleave"> Bereavement Leave</a></li>
+                <li><a href="#bdayleave"> Birthday Leave</a></li>
+                <li><a href="#eleave"> Emergency Leave</a></li>
+                <li><a href="#lwop"> Leave WithOut Pay</a></li>
+                <li><a href="#matleave"> Maternity Leave</a></li>
+                <li><a href="#patleave"> Paternity Leave</a></li>
+                <li><a href="#sleave"> Sick Leave</a></li>
+                <li><a href="#vacleave"> Vacation Leave</a></li>
               </ul>
             </li>
             <li><a href="#overtime"><span class="micon dw dw-counterclockwise"></span> Overtime</a></li>
@@ -94,13 +94,8 @@
           </a>
           <ul class="submenu">
             <li><a href="<?= route_to('admin.profile') ?>"><span class="micon dw dw-user-2"></span> User Profile</a></li>
-            <li><a href="<?= route_to('settings') ?>"><span class="micon dw dw-user-11"></span> Profile Settings</a></li>
+            <li><a href="<?= route_to('settings') ?>"><span class="micon dw dw-settings1"></span> Settings</a></li>
           </ul>
-        </li>
-        <li>
-          <a href="#settings" class="dropdown-toggle no-arrow">
-            <span class="micon dw dw-settings1"></span><span class="mtext">Settings</span>
-          </a>
         </li>
         <!-- <li>
           <a href="https://dropways.github.io/deskapp-free-single-page-website-template/" target="_blank" class="dropdown-toggle no-arrow">

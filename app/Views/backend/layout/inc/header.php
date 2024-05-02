@@ -51,9 +51,10 @@
       <div class="dropdown">
         <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown">
           <span class="user-icon">
-            <img src="/backend/vendors/images/photo1.jpg" alt="" />
+            <!-- <img src="/backend/vendors/images/photo1.jpg" alt="" /> -->
+            <img src="<?= get_user()->picture == null ? '/images/users/8man-user.jpg' : '/images/users/'.get_user()->picture ?>" alt="" class="avatar-photo ci-avatar-photo">
           </span>
-          <span class="user-name">Ross C. Lopez</span>
+          <span class="user-name"><?= get_user()->name ?></span>
         </a>
         <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
           <a class="dropdown-item" href="<?= route_to('admin.profile') ?>"><i class="dw dw-user1"></i> Profile</a>
