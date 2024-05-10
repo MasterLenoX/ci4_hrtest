@@ -2,6 +2,7 @@
   "dependencies": {
     "@angular/animations": "^17.3.8",
     "ngx-toastr": "^18.0.0",
-    "sweetalert2": "^11.10.8"
+    "sweetalert2": "^11.10.8",
+    "toastr": "^2.1.4"
   }
 }

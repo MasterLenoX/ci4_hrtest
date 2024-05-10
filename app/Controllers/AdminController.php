@@ -78,8 +78,6 @@ class AdminController extends BaseController
                 } else {
                     return json_encode(['status'=>0,'msg'=>'Something went wrong']);
                 }
-                
-
             }
             
         }
