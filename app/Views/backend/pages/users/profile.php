@@ -27,6 +27,7 @@
         <div class="profile-photo">
           <a href="javascript:;" onclick="event.preventDefault();document.getElementById('user_profile_file').click();" class="edit-avatar"><i class="fa fa-pencil"></i></a>
           <img src="<?= get_user()->picture == null ? '/images/users/8man-user.jpg' : '/images/users/' . get_user()->picture ?>" alt="" class="avatar-photo ci-avatar-photo">
+
           <!-- <img src="/images/users/leo-users.jpg" alt="" class="avatar-photo ci-avatar-photo"> -->
         </div>
         <h5 class="text-center h5 mb-0 ci-user-name"><?= get_user()->name ?></h5>
@@ -92,7 +93,33 @@
               <div class="tab-pane fade height-100-p" id="personal_detail" role="tabpanel">
                 <div class="profile-setting">
                   <div class="pd-20">
-                    --- profile details
+                    <form action="" method="post">
+                      <?= csrf_field(); ?>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label for="">Name</label>
+                            <input type="text" name="name" class="form-control" placeholder="Enter Full Name">
+                            <span class="text-danger error-text name_error"></span>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label for="">Userame</label>
+                            <input type="text" name="username" class="form-control" placeholder="Enter Username">
+                            <span class="text-danger error-text username_error"></span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label for="">Bio</label>
+                        <textarea name="bio" id="" cols="30" class="form-control" placeholder="Enter Bio..."></textarea>
+                        <span class="text-danger error-text bio_error"></span>
+                      </div>
+                      <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                      </div>
+                    </form>
                   </div>
                 </div>
               </div>
