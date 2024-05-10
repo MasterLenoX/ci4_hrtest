@@ -25,8 +25,41 @@
     <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 mb-30">
       <div class="pd-20 card-box height-100-p">
         <div class="profile-photo">
-          <a href="javascript:;" onclick="event.preventDefault();document.getElementById('user_profile_file').click();" class="edit-avatar"><i class="fa fa-pencil"></i></a>
+          <!-- <a href="javascript:;" onclick="event.preventDefault();document.getElementById('user_profile_file').click();" class="edit-avatar"><i class="fa fa-pencil"></i></a> -->
+          <a href="#" class="btn-block edit-avatar" data-toggle="modal" data-target="#small-modal" type="button">
+            <i class="fa fa-pencil"></i>
+          </a>
           <img src="<?= get_user()->picture == null ? '/images/users/8man-user.jpg' : '/images/users/' . get_user()->picture ?>" alt="" class="avatar-photo ci-avatar-photo">
+
+          <div class="modal fade" id="small-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" style="display: none;" aria-hidden="true">
+            <div class="modal-dialog modal-sm modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title" id="myLargeModalLabel">
+                    Large modal
+                  </h4>
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    ×
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <p>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing
+                    elit, sed do eiusmod tempor incididunt ut labore et
+                    dolore magna aliqua.
+                  </p>
+                </div>
+                <div class="modal-footer">
+                  <button type="submit" class="btn btn-primary"> Save Changes </button>
+                  <button type="button" class="btn btn-dark" data-dismiss="modal">
+                    Close
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
 
           <!-- <img src="/images/users/leo-users.jpg" alt="" class="avatar-photo ci-avatar-photo"> -->
         </div>
@@ -144,27 +177,27 @@
 <?= $this->endSection() ?>
 <?= $this->section('scripts') ?>
 <script>
-  $('#personal_details_from').on('submit', function(e){
+  $('#personal_details_from').on('submit', function(e) {
     e.preventDefault();
     // alert('Personal Details Change');
     var form = this;
     var formData = new FormData(form);
 
     $.ajax({
-      url:$(form).attr('action'),
-      method:$(form).attr('method'),
-      data:formData,
-      processData:false,
-      dataType:'json',
-      contentType:false,
-      beforeSend:function(){
+      url: $(form).attr('action'),
+      method: $(form).attr('method'),
+      data: formData,
+      processData: false,
+      dataType: 'json',
+      contentType: false,
+      beforeSend: function() {
         toastr.remove();
         $(form).find('span.error-text').text('');
       },
-      success:function(response){
-        if ( $.isEmptyObject(response.error) ) {
-          if ( response.status == 1 ) {
-            $('.ci-user-name').each(function(){
+      success: function(response) {
+        if ($.isEmptyObject(response.error)) {
+          if (response.status == 1) {
+            $('.ci-user-name').each(function() {
               $(this).html(response.user_info.name);
             });
             toastr.success(response.msg);
@@ -172,8 +205,8 @@
             toastr.error(response.msg);
           }
         } else {
-          $.each(response.error, function(prefix, val){
-            $(form).find('span.'+prefix+'_error').text(val);
+          $.each(response.error, function(prefix, val) {
+            $(form).find('span.' + prefix + '_error').text(val);
           });
         }
       }

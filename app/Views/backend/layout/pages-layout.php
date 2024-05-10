@@ -37,6 +37,9 @@
 			type="text/css"
 			href="/backend/vendors/styles/icon-font.min.css"
 		/>
+		<!-- toastr css -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 		<link rel="stylesheet" type="text/css" href="/backend/vendors/styles/style.css" />
     <?= $this->renderSection('stylesheets') ?>
 
@@ -83,6 +86,8 @@
 		<script src="/backend/vendors/scripts/script.min.js"></script>
 		<script src="/backend/vendors/scripts/process.js"></script>
 		<script src="/backend/vendors/scripts/layout-settings.js"></script>
+		<!-- toastr js -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <?= $this->renderSection('scripts') ?>
 	</body>
 </html>
