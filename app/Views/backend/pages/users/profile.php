@@ -93,27 +93,27 @@
               <div class="tab-pane fade height-100-p" id="personal_detail" role="tabpanel">
                 <div class="profile-setting">
                   <div class="pd-20">
-                    <form action="" method="post">
+                    <form action="<?= route_to('update-personal-details') ?>" method="POST" id="personal_details_from">
                       <?= csrf_field(); ?>
                       <div class="row">
                         <div class="col-md-6">
                           <div class="form-group">
                             <label for="">Name</label>
-                            <input type="text" name="name" class="form-control" placeholder="Enter Full Name">
+                            <input type="text" name="name" class="form-control" placeholder="Enter Full Name" value="<?= get_user()->name ?>">
                             <span class="text-danger error-text name_error"></span>
                           </div>
                         </div>
                         <div class="col-md-6">
                           <div class="form-group">
                             <label for="">Userame</label>
-                            <input type="text" name="username" class="form-control" placeholder="Enter Username">
+                            <input type="text" name="username" class="form-control" placeholder="Enter Username" value="<?= get_user()->username ?>">
                             <span class="text-danger error-text username_error"></span>
                           </div>
                         </div>
                       </div>
                       <div class="form-group">
                         <label for="">Bio</label>
-                        <textarea name="bio" id="" cols="30" class="form-control" placeholder="Enter Bio..."></textarea>
+                        <textarea name="bio" id="" cols="30" class="form-control" placeholder="Enter Bio..."><?= get_user()->bio ?></textarea>
                         <span class="text-danger error-text bio_error"></span>
                       </div>
                       <div class="form-group">
@@ -141,4 +141,43 @@
   </div>
 </div>
 
+<?= $this->endSection() ?>
+<?= $this->section('scripts') ?>
+<script>
+  $('#personal_details_from').on('submit', function(e){
+    e.preventDefault();
+    // alert('Personal Details Change');
+    var form = this;
+    var formData = new FormData(form);
+
+    $.ajax({
+      url:$(form).attr('action'),
+      method:$(form).attr('method'),
+      data:formData,
+      processData:false,
+      dataType:'json',
+      contentType:false,
+      beforeSend:function(){
+        toastr.remove();
+        $(form).find('span.error-text').text('');
+      },
+      success:function(response){
+        if ( $.isEmptyObject(response.error) ) {
+          if ( response.status == 1 ) {
+            $('.ci-user-name').each(function(){
+              $(this).html(response.user_info.name);
+            });
+            toastr.success(response.msg);
+          } else {
+            toastr.error(response.msg);
+          }
+        } else {
+          $.each(response.error, function(prefix, val){
+            $(form).find('span.'+prefix+'_error').text(val);
+          });
+        }
+      }
+    });
+  });
+</script>
 <?= $this->endSection() ?>
