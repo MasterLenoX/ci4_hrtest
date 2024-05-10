@@ -88,6 +88,8 @@
 		<script src="/backend/vendors/scripts/layout-settings.js"></script>
 		<!-- toastr js -->
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+		<!-- ijaboCropTool -->
+		
     <?= $this->renderSection('scripts') ?>
 	</body>
 </html>

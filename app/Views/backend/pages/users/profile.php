@@ -36,25 +36,27 @@
               <div class="modal-content">
                 <div class="modal-header">
                   <h4 class="modal-title" id="myLargeModalLabel">
-                    Large modal
+                    Update Profile Pic
                   </h4>
                   <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                     ×
                   </button>
                 </div>
-                <div class="modal-body">
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing
-                    elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua.
-                  </p>
-                </div>
-                <div class="modal-footer">
-                  <button type="submit" class="btn btn-primary"> Save Changes </button>
-                  <button type="button" class="btn btn-dark" data-dismiss="modal">
-                    Close
-                  </button>
-                </div>
+                <form action="" id="">
+                  <div class="modal-body">
+                    <div class="form-group">
+                      <label>New Picture</label>
+                      <input type="file" class="form-control-file form-control height-auto">
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary"> Save Changes </button>
+                    <button type="button" class="btn btn-dark" data-dismiss="modal">
+                      Close
+                    </button>
+                  </div>
+                </form>
+
               </div>
             </div>
           </div>
