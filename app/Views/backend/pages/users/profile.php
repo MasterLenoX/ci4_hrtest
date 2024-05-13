@@ -38,25 +38,24 @@
                   <h4 class="modal-title" id="myLargeModalLabel">
                     Update Profile Pic
                   </h4>
-                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                  <!-- <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                     ×
-                  </button>
+                  </button> -->
                 </div>
-                <form action="" id="">
+                <form action="<?= route_to('update-personal-profile') ?>" method="post" enctype="multipart/form-data" id="upload_form">
                   <div class="modal-body">
                     <div class="form-group">
-                      <label>New Picture</label>
-                      <input type="file" class="form-control-file form-control height-auto">
+                      <label for="message-text" class="control-label">Upload image:</label>
+                      <img src="<?php echo base_url(); ?>images/users/8man-user.jpg" alt="Blank image" id="uploadimg" class="img-thumbnail">
+                      <!-- <img src="<?php // get_user()->picture == null ? '/images/users/8man-user.jpg' : '/images/users/' . get_user()->picture ?>" alt="" class="p-md-4 avatar-photo ci-avatar-photo"> -->
+                    <input style="display:none" id="file" value=" " type="file" class="file" data-show-preview="false">
                     </div>
                   </div>
                   <div class="modal-footer">
                     <button type="submit" class="btn btn-primary"> Save Changes </button>
-                    <button type="button" class="btn btn-dark" data-dismiss="modal">
-                      Close
-                    </button>
+                    <button type="button" class="btn btn-dark" data-dismiss="modal"> Close </button>
                   </div>
                 </form>
-
               </div>
             </div>
           </div>
@@ -212,6 +211,29 @@
           });
         }
       }
+    });
+  });
+
+  $('#upload_form').on('submit', function(e) {
+    e.preventDefault();
+    // alert('Please insert picture');
+    var form = this;
+    var formData = new FormData(form);
+
+    $.ajax({
+      url: $(form).attr('action'),
+      secureuri: false,
+      type: "POST",
+      fileElementId: 'image',
+      dataType: 'text',
+      data: {
+        file: file
+      },
+      cache: true,
+      success: function(data) {
+        alert(data);
+        console.log(data);
+      }, // beforeSend        
     });
   });
 </script>

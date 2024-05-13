@@ -16,7 +16,7 @@ $routes->group('admin', static function($routes){
     $routes->get('profile','AdminController::profile',['as'=>'admin.profile']);
     $routes->post('update-personal-details','AdminController::updatePersonalDetails',['as'=>'update-personal-details']);
     $routes->get('settings','AdminController::settings',['as'=>'settings']);
-
+    $routes->post('update-personal-profile','AdminController::updateProfilePicture',['as'=>'update-personal-profile']);
 
     //Employee 
 
