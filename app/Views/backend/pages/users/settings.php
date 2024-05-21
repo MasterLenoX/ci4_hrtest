@@ -35,7 +35,35 @@
               <!-- password Tab start -->
               <div class="tab-pane fade show active" id="password" role="tabpanel">
                 <div class="pd-20">
-                  --=== Change Password 
+                  <form action="<?= route_to('change-password') ?>" method="post" id="change_password_form">
+                    <input type="hidden" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>" class="ci_csrf_data">
+                    <div class="row">
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label for="">Current Password</label>
+                          <input type="password" class="form-control" placeholder="Enter Current Password" name="current_password">
+                          <span class="text-danger error-text current_password_error"></span>
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label for="">New Password</label>
+                          <input type="password" class="form-control" placeholder="Enter New Password" name="new_password">
+                          <span class="text-danger error-text new_password_error"></span>
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label for="">Confirm New Password</label>
+                          <input type="password" class="form-control" placeholder="Enter Confirm New Password" name="confirm_new_password">
+                          <span class="text-danger error-text confirm_new_password_error"></span>
+                        </div>
+                      </div>
+                    </div>
+                      <div class="form-group">
+                        <button type="submit" class="btn btn-primary">SAVE CHANGES</button>
+                      </div>
+                  </form> 
                 </div>
               </div>
               <!-- password Tab End -->

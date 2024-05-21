@@ -83,27 +83,11 @@ class AdminController extends BaseController
     }
 
     public function updateProfilePicture(){
-        
-        $var = $_POST['file'];
-        print_r($var);
-        if($this->input->post('file')) {
-            $config['upload_path'] = 'upload'; 
-            $config['file_name'] = $var;
-            $config['overwrite'] = 'TRUE';
-            $config["allowed_types"] = 'jpg|jpeg|png|gif';
-            $config["max_size"] = '1024';
-            $config["max_width"] = '400';
-            $config["max_height"] = '400';
-            $this->load->library('upload', $config);
-    
-            if(!$this->upload->do_upload()) {
-                $this->data['error'] = $this->upload->display_errors();
-                print_r( $this->data['error']);
-            } else {
-                print_r("success");
-            }
-        }
-
-
+        $request = \Config\Services::request();
+        $validation = \Config\Services::validation();
+        $user_id = CIAuth::id();
     }
+
+    
+    //Employee Page
 }

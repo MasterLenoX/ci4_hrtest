@@ -1,6 +1,6 @@
 <div class="left-side-bar">
   <div class="brand-logo">
-    <a href="<?= route_to('admin.home') ?>">
+    <a href="<?= route_to('admin.profile') ?>">
       <img src="/images/ffihris-logo-light.png" alt="" class="dark-logo" />
       <img src="/images/ffihris-logo-light.png" alt="" class="light-logo" />
     </a>
