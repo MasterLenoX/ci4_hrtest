@@ -6,6 +6,7 @@ use App\Controllers\BaseController;
 use CodeIgniter\HTTP\ResponseInterface;
 use App\Libraries\CIAuth;
 use App\Models\UsersModel;
+use App\Libraries\Hash;
 
 class AdminController extends BaseController
 {
@@ -86,7 +87,8 @@ class AdminController extends BaseController
     }
   }
 
-  public function updateProfilePicture(){
+  public function updateProfilePicture()
+  {
     $request = \Config\Services::request();
     $user_id = CIAuth::id();
     $user = new UsersModel();
@@ -130,9 +132,75 @@ class AdminController extends BaseController
     }
   }
 
-  public function changePassowrd(){
-		
-	}
+  public function changePassowrd()
+  {
+    $request = \Config\Services::request();
+
+    if ($request->isAJAX()) {
+      $validation = \Config\Services::validation();
+      $user_id = CIAuth::id();
+      $user = new UsersModel();
+      $user_info = $user->asObject()->where('id', $user_id)->first();
+
+      $this->validate([
+        'current_password' => [
+          'rules' => 'required|min_length[5]|check_current_password[current_password]',
+          'errors' => [
+            'required' => 'Enter Current Password',
+            'min_length' => 'Password must have at least 5 characters',
+            'check_current_password' => 'The current password is incorrect'
+          ]
+        ],
+        'new_password' => [
+          'rules' => 'required|min_length[5]|max_length[20]|is_password_strong[new_password]',
+          'errors' => [
+            'required' => 'New password is required',
+            'min_length' => 'New password must have atleast 5 characters',
+            'max_length' => 'New password must not excess atleast 20 characters',
+            'is_password_strong' => 'Password must contains atleast 1 uppercase, 1 lowercase, 1 number and 1 special character'
+          ]
+        ],
+        'confirm_new_password' => [
+          'rules' => 'required|matches[new_password]',
+          'errors' => [
+            'required' => 'Confirm New Password',
+            'matches' => 'Password Mismatch'
+          ]
+        ]
+      ]);
+
+      if ($validation->run() === FALSE) {
+        $errors = $validation->getErrors();
+        return $this->response->setJSON(['status' => 0, 'token' => csrf_hash(), 'error' => $errors]);
+      } else {
+        // Update user(admin) password in DB
+        $user->where('id', $user_info->id)
+          ->set(['password' => Hash::make($request->getVar('new_password'))])
+          ->update();
+
+          				# send notification to user (admin) email address
+				// $mail_data = array(
+				// 	'user' => $user_info,
+				// 	'new_password' => $this->request->getVar('new_password')
+				// );
+
+				// $view = \Config\Services::renderer();
+				// $mail_body = $view->setVar('mail_data', $mail_data)->render('email-templates/password-changed-email-template');
+
+				// $mailConfig = array(
+				// 	'mail_from_email' => env('EMAIL_FROM_ADDRESS'),
+				// 	'mail_from_name' => env('EMAIL_FROM_NAME'),
+				// 	'mail_recipient_email' => $user_info->email,
+				// 	'mail_recipient_name' => $user_info->name,
+				// 	'mail_subject' => 'Password Changed',
+				// 	'mail_body' => $mail_body
+				// );
+
+        // sendEmail($mailConfig);
+        return $this->response->setJSON(['status' => 1, 'token' => csrf_hash(), 'msg' => 'Good! Password has been changed']);
+      }
+    }
+  }
 
   //Employee Page
 }

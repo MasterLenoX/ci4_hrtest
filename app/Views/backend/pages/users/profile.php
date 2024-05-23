@@ -31,7 +31,7 @@
           <input type="file" name="user_profile_file" id="user_profile_file" class="d-none" style="opacity: 0;">
           <img src="<?= get_user()->picture == null ? '/images/users/8man-user.jpg' : '/images/users/' . get_user()->picture ?>" alt="" class="avatar-photo ci-avatar-photo">
         </div>
-        <h5 class="text-center h5 mb-0 ci-user-name"><?= get_user()->name ?></h5>
+        <h5 class="text-center h5 mb-0 ci-user-name"><?= get_user()->name ?> <span class="text-secondary h5 em mb-0">&#10088;<mark><em><small><?= get_user()->username ?></small></em></mark>&#10089;</> </h5> 
         <p class="text-center text-muted font-14">
           <?= get_user()->email ?>
         </p>
