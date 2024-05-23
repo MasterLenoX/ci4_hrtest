@@ -30,6 +30,15 @@
               <li class="nav-item">
                 <a class="nav-link active" data-toggle="tab" href="#password" role="tab">Change Password</a>
               </li>
+              <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#general_settings" role="tab">General Settings</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#logo_favicon" role="tab">Logo & Favicon</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#social_media" role="tab">Social Media</a>
+              </li>
             </ul>
             <div class="tab-content">
               <!-- password Tab start -->
@@ -60,13 +69,45 @@
                         </div>
                       </div>
                     </div>
-                      <div class="form-group">
-                        <button type="submit" class="btn btn-primary">SAVE CHANGES</button>
-                      </div>
-                  </form> 
+                    <div class="form-group">
+                      <button type="submit" class="btn btn-primary">SAVE CHANGES</button>
+                    </div>
+                  </form>
                 </div>
               </div>
               <!-- password Tab End -->
+              <!-- Logp & Favicon Tab start -->
+              <div class="tab-pane fade height-100-p" id="general_settings" role="tabpanel">
+                <div class="profile-setting">
+                  <div class="pd-20">
+                    <form action="" method="post" id="general_settings_form">
+                      
+                    </form>
+                  </div>
+                </div>
+              </div>
+              <!-- Logo & Favicon Tab End -->
+
+              <!-- Logp & Favicon Tab start -->
+              <div class="tab-pane fade height-100-p" id="logo_favicon" role="tabpanel">
+                <div class="profile-setting">
+                  <div class="pd-20">
+                    --- Logo & Favicon
+                  </div>
+                </div>
+              </div>
+              <!-- Logo & Favicon Tab End -->
+
+              <!-- Social Media Tab start -->
+              <div class="tab-pane fade height-100-p" id="social_media" role="tabpanel">
+                <div class="profile-setting">
+                  <div class="pd-20">
+                    --- Social Media
+                  </div>
+                </div>
+              </div>
+              <!-- Social Media Tab End -->
+
             </div>
           </div>
         </div>
@@ -77,14 +118,14 @@
 <?= $this->endSection() ?>
 <?= $this->section('scripts') ?>
 <script>
-  $('#change_password_form').on('submit',function(e){
+  $('#change_password_form').on('submit', function(e) {
     e.preventDefault();
     // alert('Submit...');
     var csrfName = $('.ci_csrf_name').attr('name');
     var csrfHash = $('.ci_csrf_hash').val();
-    var form = this; 
+    var form = this;
     var formData = new FormData(form);
-        formData.append(csrfName, csrfHash);
+    formData.append(csrfName, csrfHash);
 
     $.ajax({
       url: $(form).attr('action'),
@@ -94,30 +135,29 @@
       dataType: 'json',
       contentType: false,
       cache: false,
-      beforeSend: function(){
+      beforeSend: function() {
         toastr.remove();
         $(form).find('span.error-text').text('');
       },
-      success: function(response){
+      success: function(response) {
         //Update CSRF Hash
         $('.ci_csrf_data').val(response.token);
 
-        if ( $.isEmptyObject(response.error) ) {
-          if ( response.status == 1 ) {
+        if ($.isEmptyObject(response.error)) {
+          if (response.status == 1) {
             $(form)[0].reset();
             toastr.success(response.msg);
           } else {
             toastr.error(response.msg);
           }
         } else {
-          $.each(response.error, function(prefix, val){
-            $(form).find('span.'+prefix+'_error').text(val);
+          $.each(response.error, function(prefix, val) {
+            $(form).find('span.' + prefix + '_error').text(val);
           });
         }
       }
     });
-    
+
   });
 </script>
 <?= $this->endSection() ?>
-

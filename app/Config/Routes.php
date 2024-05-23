@@ -14,14 +14,11 @@ $routes->group('admin', static function($routes){
     $routes->get('home','AdminController::index',['as'=>'admin.home']);
     $routes->get('logout','AdminController::logoutHandler',['as'=>'admin.logout']);
     $routes->get('profile','AdminController::profile',['as'=>'admin.profile']);
-    $routes->post('update-personal-details','AdminController::updatePersonalDetails',['as'=>'update-personal-details']);
+    $routes->post('update-user-details','AdminController::updateUserDetails',['as'=>'update-user-details']);
     $routes->get('settings','AdminController::settings',['as'=>'settings']);
-    $routes->post('update-personal-profile','AdminController::updateProfilePicture',['as'=>'update-personal-profile']);
     $routes->get('update-profile-picture','AdminController::updateProfilePicture',['as'=>'update-profile-picture']);
     $routes->post('change-password','AdminController::changePassowrd',['as'=>'change-password']);
     //Employee 
-
-
     
   });
 

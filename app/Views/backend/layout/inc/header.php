@@ -52,7 +52,7 @@
         <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown">
           <span class="user-icon">
             <!-- <img src="/backend/vendors/images/photo1.jpg" alt="" /> -->
-            <img src="<?= get_user()->picture == null ? '/images/users/8man-user.jpg' : '/images/users/'.get_user()->picture ?>" alt="" class="avatar-photo ci-avatar-photo">
+            <img src="<?= get_user()->picture == null ? '/images/users/aidenpearce.jpg' : '/images/users/'.get_user()->picture ?>" alt="" class="avatar-photo ci-avatar-photo">
           </span>
           <span class="user-name"><?= get_user()->name ?></span>
         </a>
