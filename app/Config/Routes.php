@@ -17,6 +17,7 @@ $routes->group('admin', static function($routes){
     $routes->post('update-personal-details','AdminController::updatePersonalDetails',['as'=>'update-personal-details']);
     $routes->get('settings','AdminController::settings',['as'=>'settings']);
     $routes->post('update-personal-profile','AdminController::updateProfilePicture',['as'=>'update-personal-profile']);
+    $routes->get('update-profile-picture','AdminController::updateProfilePicture',['as'=>'update-profile-picture']);
     $routes->post('change-password','AdminController::changePassowrd',['as'=>'change-password']);
     //Employee 
 

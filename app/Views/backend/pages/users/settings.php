@@ -74,5 +74,50 @@
     </div>
   </div>
 </div>
-
 <?= $this->endSection() ?>
+<?= $this->section('scripts') ?>
+<script>
+  $('#change_password_form').on('submit',function(e){
+    e.preventDefault();
+    // alert('Submit...');
+    var csrfName = $('.ci_csrf_name').attr('name');
+    var csrfHash = $('.ci_csrf_hash').val();
+    var form = this; 
+    var formData = new FormData(form);
+        formData.append(csrfName, csrfHash);
+
+    $.ajax({
+      url: $(form).attr('action'),
+      method: $(form).attr('method'),
+      data: formData,
+      processData: false,
+      dataType: 'json',
+      contentType: false,
+      cache: false,
+      beforeSend: function(){
+        toastr.remove();
+        $(form).find('span.error-text').text('');
+      },
+      success: function(response){
+        //Update CSRF Hash
+        $('.ci_csrf_data').val(response.token);
+
+        if ( $.isEmptyObject(response.error) ) {
+          if ( response.status == 1 ) {
+            $(form)[0].reset();
+            toastr.success(response.msg);
+          } else {
+            toastr.error(response.msg);
+          }
+        } else {
+          $.each(response.error, function(prefix, val){
+            $(form).find('span.'+prefix+'_error').text(val);
+          });
+        }
+      }
+    });
+    
+  });
+</script>
+<?= $this->endSection() ?>
+

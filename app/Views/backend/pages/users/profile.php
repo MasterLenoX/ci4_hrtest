@@ -185,10 +185,14 @@
     preview : '.ci-avatar-photo',
     setRatio: 1,
     allowedExtensions: ['jpg','jpeg','png'],
-    processUrl: '',
+    processUrl: '<?= route_to('update-profile-picture') ?>',
     withCSRF:['<?= csrf_token() ?>','<?= csrf_hash() ?>'],
     onSuccess: function(message, element, status){
-      alert(message);
+      if ( status == 1 ) {
+        toastr.success(message);
+      } else {
+        toastr.error(message)
+      }
     },
     onError:function(message, element, status){
       alert(message);
