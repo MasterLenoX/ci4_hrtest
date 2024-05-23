@@ -80,8 +80,48 @@
               <div class="tab-pane fade height-100-p" id="general_settings" role="tabpanel">
                 <div class="profile-setting">
                   <div class="pd-20">
-                    <form action="" method="post" id="general_settings_form">
-                      
+                    <form action="<?= route_to('update-general-settings') ?>" method="post" id="general_settings_form">
+                      <input type="hidden" name="<?= csrf_token() ?>" value="<?= csrf_token() ?>" class="ci_csrf_data">
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label for="">Blog Title</label>
+                            <input type="text" name="blog_title" class="form-control" placeholder="Enter Blog Title">
+                            <span class="text-danger error-text blog_title_error"></span>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label for="">Blog Email</label>
+                            <input type="text" name="blog_email" class="form-control" placeholder="Enter Blog Email">
+                            <span class="text-danger error-text blog_email_error"></span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label for="">Blog Phone No.</label>
+                            <input type="text" name="blog_phone" class="form-control" placeholder="Enter Blog Phone">
+                            <span class="text-danger error-text blog_phone_error"></span>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label for="">Blog Meta Keywords</label>
+                            <input type="text" name="blog_meta_keywords" class="form-control" placeholder="Enter Blog Meta Keywords">
+                            <span class="text-danger error-text blog_meta_keywords_error"></span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label for="">Blog Meta Description</label>
+                        <textarea name="blog_meta_desc" id="" cols="4" rows="3" class="form-control" placeholder="Write Blog Meta Description"></textarea>
+                        <span class="text-danger error-text blog_meta_desc_error"></span>
+                      </div>
+                      <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                      </div>
                     </form>
                   </div>
                 </div>

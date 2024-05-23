@@ -15,9 +15,10 @@ $routes->group('admin', static function($routes){
     $routes->get('logout','AdminController::logoutHandler',['as'=>'admin.logout']);
     $routes->get('profile','AdminController::profile',['as'=>'admin.profile']);
     $routes->post('update-user-details','AdminController::updateUserDetails',['as'=>'update-user-details']);
-    $routes->get('settings','AdminController::settings',['as'=>'settings']);
     $routes->get('update-profile-picture','AdminController::updateProfilePicture',['as'=>'update-profile-picture']);
+    $routes->get('settings','AdminController::settings',['as'=>'settings']);
     $routes->post('change-password','AdminController::changePassowrd',['as'=>'change-password']);
+    $routes->post('update-general-settings','AdminController::updateGeneralSettings',['as'=>'update-general-settings']);
     //Employee 
     
   });
