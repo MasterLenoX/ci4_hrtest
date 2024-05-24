@@ -6,6 +6,7 @@ use App\Controllers\BaseController;
 use CodeIgniter\HTTP\ResponseInterface;
 use App\Libraries\CIAuth;
 use App\Models\UsersModel;
+use App\Models\SettingsModel;
 use App\Libraries\Hash;
 
 class AdminController extends BaseController
@@ -42,53 +43,53 @@ class AdminController extends BaseController
     return view('backend/pages/users/settings', $data);
   }
 
-  public function updateUserDetails(){
+  public function updateUserDetails()
+  {
     $request = \Config\Services::request();
     $validation = \Config\Services::validation();
     $user_id = CIAuth::id();
 
-    if($request->isAJAX()){
+    if ($request->isAJAX()) {
       $this->validate([
-        'name'=>[
-          'rules'=>'required',
-          'errors'=>[
-            'required'=>'Full name is required'
+        'name' => [
+          'rules' => 'required',
+          'errors' => [
+            'required' => 'Full name is required'
           ]
         ],
-        'username'=>[
-          'rules'=>'required|min_length[4]|is_unique[users.username,id,'.$user_id.']',
-          'error'=>[
-            'required'=>'Username is required',
-            'min_length'=>'Username must have minimum of 4 characters',
-            'is_unique'=>'Username is already taken!'
+        'username' => [
+          'rules' => 'required|min_length[4]|is_unique[users.username,id,' . $user_id . ']',
+          'error' => [
+            'required' => 'Username is required',
+            'min_length' => 'Username must have minimum of 4 characters',
+            'is_unique' => 'Username is already taken!'
           ]
         ],
       ]);
 
-      if ( $validation->run() == FALSE ) {
+      if ($validation->run() == FALSE) {
         $errors = $validation->getErrors();
-        return json_encode(['status'=>0, 'error'=>$errors]);
+        return json_encode(['status' => 0, 'error' => $errors]);
       } else {
         $user = new UsersModel();
-        $update = $user->where('id',$user_id)
-                       ->set([
-                        'name'=>$request->getVar('name'),
-                        'username'=>$request->getVar('username'),
-                        'bio'=>$request->getVar('bio')
-                       ])->update();
-        if( $update ){
+        $update = $user->where('id', $user_id)
+          ->set([
+            'name' => $request->getVar('name'),
+            'username' => $request->getVar('username'),
+            'bio' => $request->getVar('bio')
+          ])->update();
+        if ($update) {
           $user_info = $user->find($user_id);
-          return json_encode(['status'=>1,'user_info'=>$user_info,'msg'=>'Your User details have been updated successfully']);
-        }else {
-          return json_encode(['status'=>0,'msg'=>'Something went wrong']);
+          return json_encode(['status' => 1, 'user_info' => $user_info, 'msg' => 'Your User details have been updated successfully']);
+        } else {
+          return json_encode(['status' => 0, 'msg' => 'Something went wrong']);
         }
       }
-      
     }
-
   }
 
-  public function updateProfilePicture(){
+  public function updateProfilePicture()
+  {
     $request = \Config\Services::request();
     $user_id = CIAuth::id();
     $user = new UsersModel();
@@ -178,26 +179,105 @@ class AdminController extends BaseController
           ->set(['password' => Hash::make($request->getVar('new_password'))])
           ->update();
 
-          				# send notification to user (admin) email address
-				// $mail_data = array(
-				// 	'user' => $user_info,
-				// 	'new_password' => $this->request->getVar('new_password')
-				// );
+        # send notification to user (admin) email address
+        // $mail_data = array(
+        // 	'user' => $user_info,
+        // 	'new_password' => $this->request->getVar('new_password')
+        // );
 
-				// $view = \Config\Services::renderer();
-				// $mail_body = $view->setVar('mail_data', $mail_data)->render('email-templates/password-changed-email-template');
+        // $view = \Config\Services::renderer();
+        // $mail_body = $view->setVar('mail_data', $mail_data)->render('email-templates/password-changed-email-template');
 
-				// $mailConfig = array(
-				// 	'mail_from_email' => env('EMAIL_FROM_ADDRESS'),
-				// 	'mail_from_name' => env('EMAIL_FROM_NAME'),
-				// 	'mail_recipient_email' => $user_info->email,
-				// 	'mail_recipient_name' => $user_info->name,
-				// 	'mail_subject' => 'Password Changed',
-				// 	'mail_body' => $mail_body
-				// );
+        // $mailConfig = array(
+        // 	'mail_from_email' => env('EMAIL_FROM_ADDRESS'),
+        // 	'mail_from_name' => env('EMAIL_FROM_NAME'),
+        // 	'mail_recipient_email' => $user_info->email,
+        // 	'mail_recipient_name' => $user_info->name,
+        // 	'mail_subject' => 'Password Changed',
+        // 	'mail_body' => $mail_body
+        // );
 
         // sendEmail($mailConfig);
         return $this->response->setJSON(['status' => 1, 'token' => csrf_hash(), 'msg' => 'Good! Password has been changed']);
+      }
+    }
+  }
+
+  public function updateGeneralSettings()
+  {
+    $request = \Config\Services::request();
+
+    if ($request->isAJAX()) {
+      $validation = \Config\Services::validation();
+
+      $this->validate([
+        'blog_title' => [
+          'rules' => 'required',
+          'errors' => [
+            'required' => 'Blog Title is required'
+          ]
+        ],
+        'blog_email'=>[
+          'rules'=>'required|valid_email',
+          'errors'=>[
+            'required'=>'Blog Email is required',
+            'valid_email'=>'Invalid Email Address'
+          ]
+        ]
+      ]);
+
+      if( $validation->run() === FALSE ){
+        $errors = $validation->getErrors();
+        return $this->response->setJSON(['status'=>0, 'token'=>csrf_hash(),'error'=>$errors]);
+      }else {
+        $settings = new SettingsModel();
+        $setting_id = $settings->asObject()->first()->id;
+        $update = $settings->where('id',$setting_id)
+                           ->set([
+                            'blog_title'=>$request->getVar('blog_title'),
+                            'blog_email'=>$request->getVar('blog_email'),
+                            'blog_phone'=>$request->getVar('blog_phone'),
+                            'blog_meta_keywords'=>$request->getVar('blog_meta_keywords'),
+                            'blog_meta_desc'=>$request->getVar('blog_meta_desc'),
+                           ])->update();
+        
+        if ( $update ) {
+          return $this->response->setJSON(['status'=>1, 'token'=>csrf_hash(),'msg'=>'Good. General Settings Updated Successfully']);
+        } else {
+          return $this->response->setJSON(['status'=>0, 'token'=>csrf_hash(),'msg'=>'Something went wrong']);
+        }
+        
+
+      }
+    }
+  }
+
+  public function updateLogo(){
+    $request = \Config\Services::request();
+
+    if ( $request->isAJAX() ) {
+      $settings = new SettingsModel();
+      $path = 'images/blog/';
+      $file = $request->getFile('blog_logo');
+      $setting_data = $settings->asObject()->first();
+      $old_logo = $setting_data->blog_logo;
+      $new_filename = 'CI4blog_logo'.$file->getRandomName();
+
+      if ( $file->move($path, $new_filename) ) {
+        if ( $old_logo != null && file_exists($path.$old_logo) ) {
+          unlink($path.$old_logo);
+        } 
+        $update = $settings->where('id',$setting_data->id)
+                           ->set(['blog_logo'=>$new_filename])
+                           ->update();
+        if ( $update ) {
+          return $this->response->setJSON(['status'=>1, 'token'=>csrf_hash(), 'msg'=>'Done! Uploading CI4 Logo has been successfully updated']);
+        } else {
+          return $this->response->setJSON(['status'=>0, 'token'=>csrf_hash(), 'msg'=>'Something wen wrong on updating new Logo info']);
+        }
+        
+      } else {
+        return json_encode(['status'=>0, 'token'=>csrf_hash(), 'msg'=>'Something went wrong on uploading a new logo']);
       }
     }
   }

@@ -76,7 +76,7 @@
                 </div>
               </div>
               <!-- password Tab End -->
-              <!-- Logp & Favicon Tab start -->
+              <!-- General Settings Tab start -->
               <div class="tab-pane fade height-100-p" id="general_settings" role="tabpanel">
                 <div class="profile-setting">
                   <div class="pd-20">
@@ -86,14 +86,14 @@
                         <div class="col-md-6">
                           <div class="form-group">
                             <label for="">Blog Title</label>
-                            <input type="text" name="blog_title" class="form-control" placeholder="Enter Blog Title">
+                            <input type="text" name="blog_title" value="<?= get_settings()->blog_title ?>" class="form-control" placeholder="Enter Blog Title">
                             <span class="text-danger error-text blog_title_error"></span>
                           </div>
                         </div>
                         <div class="col-md-6">
                           <div class="form-group">
                             <label for="">Blog Email</label>
-                            <input type="text" name="blog_email" class="form-control" placeholder="Enter Blog Email">
+                            <input type="text" name="blog_email" value="<?= get_settings()->blog_email ?>" class="form-control" placeholder="Enter Blog Email">
                             <span class="text-danger error-text blog_email_error"></span>
                           </div>
                         </div>
@@ -102,21 +102,21 @@
                         <div class="col-md-6">
                           <div class="form-group">
                             <label for="">Blog Phone No.</label>
-                            <input type="text" name="blog_phone" class="form-control" placeholder="Enter Blog Phone">
+                            <input type="text" name="blog_phone" value="<?= get_settings()->blog_phone ?>" class="form-control" placeholder="Enter Blog Phone">
                             <span class="text-danger error-text blog_phone_error"></span>
                           </div>
                         </div>
                         <div class="col-md-6">
                           <div class="form-group">
                             <label for="">Blog Meta Keywords</label>
-                            <input type="text" name="blog_meta_keywords" class="form-control" placeholder="Enter Blog Meta Keywords">
+                            <input type="text" name="blog_meta_keywords" value="<?= get_settings()->blog_meta_keywords ?>" class="form-control" placeholder="Enter Blog Meta Keywords">
                             <span class="text-danger error-text blog_meta_keywords_error"></span>
                           </div>
                         </div>
                       </div>
                       <div class="form-group">
                         <label for="">Blog Meta Description</label>
-                        <textarea name="blog_meta_desc" id="" cols="4" rows="3" class="form-control" placeholder="Write Blog Meta Description"></textarea>
+                        <textarea name="blog_meta_desc" id="" cols="4" rows="3" value="<?= get_settings()->blog_meta_desc ?>" class="form-control" placeholder="Write Blog Meta Description"></textarea>
                         <span class="text-danger error-text blog_meta_desc_error"></span>
                       </div>
                       <div class="form-group">
@@ -126,13 +126,33 @@
                   </div>
                 </div>
               </div>
-              <!-- Logo & Favicon Tab End -->
+              <!-- General Settings Tab End -->
 
               <!-- Logp & Favicon Tab start -->
               <div class="tab-pane fade height-100-p" id="logo_favicon" role="tabpanel">
                 <div class="profile-setting">
                   <div class="pd-20">
-                    --- Logo & Favicon
+                    <div class="row">
+                      <div class="col-md-6">
+                        <h5>Set Logo</h5>
+                        <div class="mb2 mt-1" style="max-width:200px;">
+                          <img src="" alt="" class="img-thumbnail" id="logo-image-preview" data-ijabo-default-img="/images/blog/<?= get_settings()->blog_logo ?>">
+                        </div>
+                        <form action="<?= route_to('update-logo') ?>" method="post" enctype="multipart/form-data" id="changeLogoForm">
+                          <div class="mb-2">
+                            <input type="file" name="blog_logo" id="" class="form-control">
+                            <span class="text-danger error-text"></span>
+                          </div>
+                          <button type="submit" class="btn btn-primary">Change Logo</button>
+                        </form>
+                      </div>
+                      <div class="col-md-6">
+                        <h5>Set Favicon</h5>
+                        <div class="mb2 mt-1" style="max-width:200px;">
+                          <img src="" alt="" class="img-thumbnail" id="favicon-image-preview" data-ijabo-default-img="/images/blog/<?= get_settings()->blog_favicon ?>">
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -197,7 +217,109 @@
         }
       }
     });
-
   });
+
+  $('#general_settings_form').on('submit', function(e){
+    e.preventDefault();
+    // alert('Submit....');
+    var csrfName = $('.ci_csrf_data').attr('name');
+    var csrfHash = $('.ci_csrf_data').val();
+    var form = this;
+    var formData = new FormData(form);
+        formData.append(csrfName, csrfHash);
+
+    $.ajax({
+      url: $(form).attr('action'),
+      method: $(form).attr('method'),
+      data: formData,
+      processData: false,
+      dataType: 'json',
+      contentType: false,
+      cache: false,
+      beforeSend: function(){
+        toastr.remove();
+        $(form).find('span.error-text').text('');
+      },
+      success: function(response){
+        //Update CSRF Hash
+        $('.ci_csrf_data').val(response.token);
+
+        if ($.isEmptyObject(response.error)){
+          if ( response.status == 1 ) {
+            $(form)[0].reset();
+            toastr.success(response.msg);
+          } else {
+            toastr.error(response.msg);
+          }
+        }else{
+          $.each(response.error, function(prefix, val){
+            $(form).find('span.'+prefix+'_error').text(val);
+          });
+        }
+      }
+    });
+  });
+
+  //Logo Uploading
+  $('input[type="file"][name="blog_logo"]').ijaboViewer({
+    preview: '#logo-image-preview',
+    imageShape: 'rectangular',
+    allowedExtensions:['jpg','jpeg','png'],
+    onErrorShape:function(message, element){
+      alert(message);
+    },
+    onInvalidType:function(message, element){
+      alert(message);
+    },
+    onSuccess:function(message, element){
+
+    }    
+  });
+
+  $('#changeLogoForm').on('submit', function(e){
+    e.preventDefault();
+    var csrfName = $('.ci_csrf_data').attr('name');
+    var csrfHash = $('.ci_csrf_data').val();
+    var form = this;
+    var formdata = new FormData(form);
+        formdata.append(csrfName, csrfHash);
+    
+    var inputFileVal = $(form).find('input[type="file"][name="blog_logo"]').val();
+    
+    if ( inputFileVal.length > 0 ) {
+      $.ajax({
+        url: $(form).attr('action'),
+        method: $(form).attr('method'),
+        data:formdata,
+        processData: false,
+        dataType: 'json',
+        contentType: false,
+        beforeSend:function(){
+          toastr.remove();
+          $(form).find('span.error-text').text('');
+        },
+        success: function(response){
+          //update CSRF hash
+          $('.ci_csrf_data').val(response.token);
+
+          if ( response.status == 1 ) {
+            toastr.success(response.msg);
+            $(form)[0].reset();
+          } else {
+            toastr.error(response.msg);
+          }
+        }
+      });  
+    } else {
+      $(form).find('span.error-text').text('Please, Select Logo image file. PNG file type is recommended.');
+    }
+  });
+
+  //Favicon Uploading
+  $('#changeFaviconForm').on('submit', function(e){
+    e.preventDefault();
+    alert('Favicon Updated Successfully...');
+  });
+
 </script>
 <?= $this->endSection() ?>

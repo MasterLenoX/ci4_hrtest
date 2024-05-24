@@ -19,6 +19,8 @@ $routes->group('admin', static function($routes){
     $routes->get('settings','AdminController::settings',['as'=>'settings']);
     $routes->post('change-password','AdminController::changePassowrd',['as'=>'change-password']);
     $routes->post('update-general-settings','AdminController::updateGeneralSettings',['as'=>'update-general-settings']);
+    $routes->post('update-logo','AdminController::updateLogo',['as'=>'update-logo']);
+    $routes->post('update-favicon','AdminController::updateFavicon',['as'=>'update-favicon']);
     //Employee 
     
   });
