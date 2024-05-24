@@ -148,9 +148,17 @@
                       </div>
                       <div class="col-md-6">
                         <h5>Set Favicon</h5>
-                        <div class="mb2 mt-1" style="max-width:200px;">
+                        <div class="mb2 mt-1" style="max-width:100px;">
                           <img src="" alt="" class="img-thumbnail" id="favicon-image-preview" data-ijabo-default-img="/images/blog/<?= get_settings()->blog_favicon ?>">
                         </div>
+                        <form action="<?= route_to('update-favicon') ?>" method="post" enctype="multipart/form-data" id="changeFaviconForm">
+                          <input type="hidden" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>" class="ci_csrf_data">
+                          <div class="mb-2">
+                            <input type="file" name="blog_favicon" id="" class="form-control">
+                            <span class="text-danger error-text"></span>
+                          </div>
+                          <button type="submit" class="btn btn-primary"> Change Favicon </button>
+                        </form>
                       </div>
                     </div>
                   </div>
@@ -316,9 +324,33 @@
   });
 
   //Favicon Uploading
+  $('input[type="file"][name="blog_favicon"]').ijaboViewer({
+    preview: '#favicon-image-preview',
+    imageShape: 'square',
+    allowedExtensions:['png'],
+    onErrorShape:function(message, element){
+      alert(message);
+    },
+    onInvalidType: function(message, element){
+      alert(message);
+    },
+    onSuccess: function(message, element){
+
+    }
+  });
+
   $('#changeFaviconForm').on('submit', function(e){
     e.preventDefault();
-    alert('Favicon Updated Successfully...');
+    // alert('Favicon Updated Successfully...');
+    var csrfName = $('.ci_csrf_data').attr('name');
+    var csrfHash = $('.ci_csrf_data').val();
+    var form = this;
+    var formdata = new FormData(form);
+        formdata.append(csrfName, csrfHash);
+    
+    var inputFileVal = $(form).find('input[type="file"][name="blog_favicon"]').val();
+
+    
   });
 
 </script>
