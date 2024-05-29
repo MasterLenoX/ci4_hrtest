@@ -3,6 +3,8 @@
     <a href="<?= route_to('admin.profile') ?>">
       <img src="/images/ffihris-logo-light.png" alt="" class="dark-logo" />
       <img src="/images/ffihris-logo-light.png" alt="" class="light-logo" />
+      <!-- <img src="/images/<?php // get_settings()->blog_logo ?>" alt="" class="dark-logo" />
+      <img src="/images/<?php // get_settings()->blog_logo ?>" alt="" class="light-logo" /> -->
     </a>
     <div class="close-sidebar" data-toggle="left-sidebar-close">
       <i class="ion-close-round"></i>
@@ -95,6 +97,7 @@
           <ul class="submenu">
             <li><a href="<?= route_to('admin.profile') ?>"><span class="micon dw dw-user-2"></span> User Profile</a></li>
             <li><a href="<?= route_to('settings') ?>"><span class="micon dw dw-settings1"></span> Settings</a></li>
+            <li><a href="<?= route_to('users-page') ?>"><span class="micon dw dw-user-11"></span> Users</a></li>
           </ul>
         </li>
         <!-- <li>

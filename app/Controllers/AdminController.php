@@ -43,6 +43,13 @@ class AdminController extends BaseController
     return view('backend/pages/users/settings', $data);
   }
 
+  public function usersPage(){
+    $data = array(
+      'pageTitle' => 'Table of Users || CI4 HRIS Test'
+    );
+    return view('backend/pages/users/users-page', $data);
+  }
+
   public function updateUserDetails()
   {
     $request = \Config\Services::request();
@@ -278,6 +285,38 @@ class AdminController extends BaseController
         
       } else {
         return json_encode(['status'=>0, 'token'=>csrf_hash(), 'msg'=>'Something went wrong on uploading a new logo']);
+      }
+    }
+  }
+
+  public function updateFavicon(){
+    $request = \Config\Services::request();
+
+    if( $request->isAJAX() ){
+      $settings = new SettingsModel();
+      $path = 'images/blog/';
+      $file = $request->getFile('blog_favicon');
+      $setting_data = $settings->asObject()->first();
+      $old_favicon = $setting_data->blog_favicon;
+      $new_filename = 'favicon_'.$file->getRandomName();
+
+      if ( $file->move($path, $new_filename) ) {
+        if( $old_favicon != null && file_exists($path.$old_favicon)){
+          unlink($path.$old_favicon);
+        }
+
+        $update = $settings->where('id', $setting_data->id)
+                           ->set(['blog_favicon'=>$new_filename])
+                           ->update();
+
+        if ( $update ) {
+          return $this->response->setJSON(['status'=>1,'token'=>csrf_hash(), 'msg'=>'Done!! Favicon has been updated successfully']);
+        } else {
+          return $this->response->setJSON(['status'=>0,'token'=>csrf_hash(), 'msg'=>'Something wen wrong on updating new Logo info']);
+        }
+
+      } else {
+        return json_encode(['status'=>0, 'token'=>csrf_hash(), 'msg'=>'Something went wrong on uploading new Favicon']);
       }
     }
   }

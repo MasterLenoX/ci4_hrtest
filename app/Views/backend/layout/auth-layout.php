@@ -12,6 +12,13 @@
 			sizes="180x180"
 			href="/images/fisherfarms_logo_icon.png"
 		/> -->
+		<!-- <link
+			rel="icon"
+			type="image/png"
+			sizes="16x16"
+			href="/images/<?php //get_settings()->blog_favicon ?>"
+		/> -->
+
 		<link
 			rel="icon"
 			type="image/png"

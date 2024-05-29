@@ -21,6 +21,10 @@ $routes->group('admin', static function($routes){
     $routes->post('update-general-settings','AdminController::updateGeneralSettings',['as'=>'update-general-settings']);
     $routes->post('update-logo','AdminController::updateLogo',['as'=>'update-logo']);
     $routes->post('update-favicon','AdminController::updateFavicon',['as'=>'update-favicon']);
+    $routes->post('update-social-media','AdminController::updateSocialMedia',['as'=>'update-social-media']);
+
+    //User Tables
+    $routes->get('users-page','AdminController::usersPage',['as'=>'users-page']);
     //Employee 
     
   });
