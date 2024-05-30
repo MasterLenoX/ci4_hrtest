@@ -174,27 +174,27 @@
               <div class="tab-pane fade height-100-p" id="social_media" role="tabpanel">
                 <div class="profile-setting">
                   <div class="pd-20">
-                    <form action="" method="post" id="social_media_form">
+                    <form action="<?= route_to('update-social-media') ?>" method="post" id="social_media_form">
                       <input type="hidden" name="<?= csrf_token() ?>" value="<? csrf_hash()?>" class="ci_csrf_data">
                       <div class="row">
                         <div class="col-md-4">
                           <div class="form-group">
-                            <label for=""><span class="text-primary micon bi bi-facebook"></span> Facebook</label>
-                            <input type="text" name="facebook_url" id="" placeholder="Enter Facebook Link" class="form-control">
+                            <label for=""><span class="text-primary micon bi bi-facebook h5"></span> Facebook</label>
+                            <input type="text" name="facebook_url" value="<?= get_socmed()->facebook_url ?>" placeholder="Enter Facebook Link" class="form-control">
                             <span class="text-danger error-text facebook_url_error"></span>
                           </div>
                         </div>
                         <div class="col-md-4">
                           <div class="form-group">
-                            <label for=""><span class="text-info micon bi bi-twitter"></span> Twitter</label>
-                            <input type="text" name="twitter_url" id="" placeholder="Enter Twitter Link" class="form-control">
+                            <label for=""><span class="micon bi bi-twitter h5" data-color="#4A8FC4"></span> Twitter</label>
+                            <input type="text" name="twitter_url" value="<?= get_socmed()->twitter_url ?>" placeholder="Enter Twitter Link" class="form-control">
                             <span class="text-danger error-text twitter_url_error"></span>
                           </div>
                         </div>
                         <div class="col-md-4">
                           <div class="form-group">
-                            <label for=""><span class="text-warning micon bi bi-instagram"></span> Instagram</label>
-                            <input type="text" name="instagram_url" id="" placeholder="Enter Instagram Link" class="form-control">
+                            <label for=""><span class="micon bi bi-instagram text-light-purple h5" data-color="#9D489A"></span> Instagram</label>
+                            <input type="text" name="instagram_url" value="<?= get_socmed()->instagram_url ?>" placeholder="Enter Instagram Link" class="form-control">
                             <span class="text-danger error-text instagram_url_error"></span>
                           </div>
                         </div>
@@ -202,22 +202,22 @@
                       <div class="row">
                         <div class="col-md-4">
                           <div class="form-group">
-                            <label for=""><span class="text-danger micon bi bi-youtube"></span> YouTube</label>
-                            <input type="text" name="youtube_url" id="" placeholder="Enter YouTube Link" class="form-control">
+                            <label for=""><span class="text-danger micon bi bi-youtube h5"></span> YouTube</label>
+                            <input type="text" name="youtube_url" value="<?= get_socmed()->youtube_url ?>" placeholder="Enter YouTube Link" class="form-control">
                             <span class="text-danger error-text youtube_url_error"></span>
                           </div>
                         </div>
                         <div class="col-md-4">
                           <div class="form-group">
-                            <label for=""><span class="micon bi bi-github"></span> GitHub</label>
-                            <input type="text" name="github_url" id="" placeholder="Enter GitHub Link" class="form-control">
+                            <label for=""><span class="micon bi bi-github h5"></span> GitHub</label>
+                            <input type="text" name="github_url" value="<?= get_socmed()->github_url ?>" placeholder="Enter GitHub Link" class="form-control">
                             <span class="text-danger error-text github_url_error"></span>
                           </div>
                         </div>
                         <div class="col-md-4">
                           <div class="form-group">
-                            <label for=""><span class="text-info micon bi bi-linkedin"></span> LinkedIn</label>
-                            <input type="text" name="linkedin_url" id="" placeholder="Enter LinkedIn Link" class="form-control">
+                            <label for=""><span class="micon bi bi-linkedin h5" data-color="#2C75C3"></span> LinkedIn</label>
+                            <input type="text" name="linkedin_url" value="<?= get_socmed()->linkedin_url ?>" placeholder="Enter LinkedIn Link" class="form-control">
                             <span class="text-danger error-text linkedin_url_error"></span>
                           </div>
                         </div>
@@ -433,6 +433,46 @@
       $(form).find('span.error-text').text('Please, Select Favicon image file. PNG file type is recommended.');
     }
     
+  });
+
+  $('#social_media_form').on('submit', function(e){
+    e.preventDefault();
+    var csrfName = $('.ci_csrf_data').attr('name');
+    var csrfHash = $('.ci_csrf_data').val();
+    var form = this;
+    var formData = new FormData(form);
+        formData.append(csrfName, csrfHash);
+
+    $.ajax({
+      url: $(form).attr('action'),
+      method: $(form).attr('method'),
+      data: formData,
+      processData: false,
+      dataType: 'json',
+      contentType: false,
+      cache: false,
+      beforeSend: function(){
+        toastr.remove();
+        $(form).find('span.error-text').text('');
+      },
+      success: function(response){
+        $('.ci_csrf_data').val(response.token);
+
+        if ( $.isEmptyObject(response.error) ) {
+          if ( response.status == 1 ) {
+            toastr.success(response.msg);
+          } else {
+            toastr.error(response.msg);
+          }
+        } else {
+          $.each(response.error, function(prefix, val){
+            $(form).find('span.'+prefix+'_error').text(val);
+          });          
+        }
+      }
+    });
+
+
   });
 
 </script>

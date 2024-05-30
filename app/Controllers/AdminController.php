@@ -321,5 +321,60 @@ class AdminController extends BaseController
     }
   }
 
+
+  public function updateSocialMedia(){
+    $request = \Config\Services::request();
+
+    if( $request->isAJAX() ){
+      $validation = \Config\Services::validation();
+      $this->validate([
+        'facebook_url'=>[
+          'rules'=>'permit_empty|valid_url_strict',
+          'errors'=>[
+            'valid_url_strict'=>'Invalid Facebook URL',
+          ]
+        ],
+        'twitter_url'=>[
+          'rules'=>'permit_empty|valid_url_strict',
+          'errors'=>[
+            'valid_url_strict'=>'Invalid Twitter URL',
+          ]
+        ],
+        'instagram_url'=>[
+          'rules'=>'permit_empty|valid_url_strict',
+          'errors'=>[
+            'valid_url_strict'=>'Invalid Instagram URL',
+          ]
+        ],
+        'youtube_url'=>[
+          'rules'=>'permit_empty|valid_url_strict',
+          'errors'=>[
+            'valid_url_strict'=>'Invalid YouTube URL',
+          ]
+        ],
+        'github_url'=>[
+          'rules'=>'permit_empty|valid_url_strict',
+          'errors'=>[
+            'valid_url_strict'=>'Invalid GitHub URL',
+          ]
+        ],
+        'linkedin_url'=>[
+          'rules'=>'permit_empty|valid_url_strict',
+          'errors'=>[
+            'valid_url_strict'=>'Invalid LinkedIn URL',
+          ]
+        ],
+      ]);      
+
+      if ( $validation->run() === FALSE ) {
+        $errors = $validation->getErrors();
+        return $this->response->setJSON(['status'=>0, 'token'=>csrf_hash(), 'error'=>$errors]);
+      } else {
+        return $this->response->setJSON(['status'=>1, 'token'=>csrf_hash(), 'msg'=>'Form Validated....']);
+      }
+      
+
+    }
+  }
   //Employee Page
 }
