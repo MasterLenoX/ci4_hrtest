@@ -51,11 +51,11 @@
 
       if ( !$socialmedia_data ) {
         $data = array(
-          'facebook_url'=>null, 
-          'twitter_url'=>null,  
-          'instagram_url'=>null,  
+          'facebook_url'=>'', 
+          'twitter_url'=>'',  
+          'instagram_url'=>'',  
           'linkedin_url'=>'https://www.linkedin.com/in/leonard-james-emperado-83b13a1b6',  
-          'youtube_url'=>null,  
+          'youtube_url'=>'',  
           'github_url'=>'https://github.com/MasterLenoX',
         );
         $socialmedia->save($data);

@@ -373,7 +373,6 @@ class AdminController extends BaseController
         return $this->response->setJSON(['status'=>1, 'token'=>csrf_hash(), 'msg'=>'Form Validated....']);
       }
       
-
     }
   }
   //Employee Page

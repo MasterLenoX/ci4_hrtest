@@ -180,21 +180,21 @@
                         <div class="col-md-4">
                           <div class="form-group">
                             <label for=""><span class="text-primary micon bi bi-facebook h5"></span> Facebook</label>
-                            <input type="text" name="facebook_url" value="<?= get_socmed()->facebook_url ?>" placeholder="Enter Facebook Link" class="form-control">
+                            <input type="text" name="facebook_url" placeholder="Enter Facebook Link" class="form-control">
                             <span class="text-danger error-text facebook_url_error"></span>
                           </div>
                         </div>
                         <div class="col-md-4">
                           <div class="form-group">
                             <label for=""><span class="micon bi bi-twitter h5" data-color="#4A8FC4"></span> Twitter</label>
-                            <input type="text" name="twitter_url" value="<?= get_socmed()->twitter_url ?>" placeholder="Enter Twitter Link" class="form-control">
+                            <input type="text" name="twitter_url"  placeholder="Enter Twitter Link" class="form-control">
                             <span class="text-danger error-text twitter_url_error"></span>
                           </div>
                         </div>
                         <div class="col-md-4">
                           <div class="form-group">
                             <label for=""><span class="micon bi bi-instagram text-light-purple h5" data-color="#9D489A"></span> Instagram</label>
-                            <input type="text" name="instagram_url" value="<?= get_socmed()->instagram_url ?>" placeholder="Enter Instagram Link" class="form-control">
+                            <input type="text" name="instagram_url"  placeholder="Enter Instagram Link" class="form-control">
                             <span class="text-danger error-text instagram_url_error"></span>
                           </div>
                         </div>
@@ -203,14 +203,14 @@
                         <div class="col-md-4">
                           <div class="form-group">
                             <label for=""><span class="text-danger micon bi bi-youtube h5"></span> YouTube</label>
-                            <input type="text" name="youtube_url" value="<?= get_socmed()->youtube_url ?>" placeholder="Enter YouTube Link" class="form-control">
+                            <input type="text" name="youtube_url"  placeholder="Enter YouTube Link" class="form-control">
                             <span class="text-danger error-text youtube_url_error"></span>
                           </div>
                         </div>
                         <div class="col-md-4">
                           <div class="form-group">
                             <label for=""><span class="micon bi bi-github h5"></span> GitHub</label>
-                            <input type="text" name="github_url" value="<?= get_socmed()->github_url ?>" placeholder="Enter GitHub Link" class="form-control">
+                            <input type="text" name="github_url" placeholder="Enter GitHub Link" class="form-control">
                             <span class="text-danger error-text github_url_error"></span>
                           </div>
                         </div>
