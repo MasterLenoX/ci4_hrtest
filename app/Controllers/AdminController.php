@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
+use App\Models\SocialMediaModel;
 use CodeIgniter\HTTP\ResponseInterface;
 use App\Libraries\CIAuth;
 use App\Models\UsersModel;
@@ -371,7 +372,23 @@ class AdminController extends BaseController
         return $this->response->setJSON(['status'=>0, 'token'=>csrf_hash(), 'error'=>$errors]);
       } else {
         // return $this->response->setJSON(['status'=>1, 'token'=>csrf_hash(), 'msg'=>'Form Validated....']);
-        
+        $social_media = new SocialMediaModel();
+        $social_media_id = $social_media->asObject()->first()->id;
+        $update = $social_media->where('id',$social_media_id)
+                               ->set([
+                                'facebook_url'=>$request->getVar('facebook_url'),
+                                'twitter_url'=>$request->getVar('twitter_url'),
+                                'instagram_url'=>$request->getVar('instagram_url'),
+                                'youtube_url'=>$request->getVar('youtube_url'),
+                                'github_url'=>$request->getVar('github_url'),
+                                'linkedin_url'=>$request->getVar('linkedin_url'),
+                               ])->update();
+        if ( $update ) {
+          return $this->response->setJSON(['status'=>1, 'token'=>csrf_hash(), 'msg'=>'Done!! User Settings Social Media have been successfully updated.']);
+        } else {
+          return $this->response->setJSON(['status'=>0, 'token'=>csrf_hash(), 'msg'=>'Something went wrong on updating users social media.']);
+        }
+         
       }
       
     }
