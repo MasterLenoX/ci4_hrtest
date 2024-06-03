@@ -395,5 +395,26 @@ class AdminController extends BaseController
   }
 
   //Employee Page
-  
+  public function employee(){
+    $data = array(
+      'pageTitle' => 'Employee Page || CI4 HRIS Test'
+    );
+    return view('backend/pages/201file/employees/employee', $data);
+  }
+
+  //Department Page
+  public function department(){
+    $data = array(
+      'pageTitle' => 'Department Page || CI4 HRIS Test'
+    );
+    return view('backend/pages/201file/department/department', $data);
+  }
+
+  //Organization Page
+  public function organization(){
+    $data = array(
+      'pageTitle' => 'Orgazization Page || CI4 HRIS Test'
+    );
+    return view('backend/pages/201file/organization/organization', $data);
+  }
 }

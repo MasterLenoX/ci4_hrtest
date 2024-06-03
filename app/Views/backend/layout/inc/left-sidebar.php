@@ -23,15 +23,15 @@
             <span class="micon dw dw-user-2"></span><span class="mtext"> 201 File</span>
           </a>
           <ul class="submenu">
-            <li><a href="#employee"><span class="micon dw dw-user"></span>&nbsp; Employees Profile</a></li>
-            <li><a href="#department"><span class="micon dw dw-user-3"></span> Department</a></li>
-            <li><a href="#organization"><span class="micon dw dw-user-11"></span> Organization</a></li>
+            <li><a href="<?= route_to('employee') ?>"><span class="micon dw dw-user"></span>&nbsp; Employee </a></li>
+            <li><a href="<?= route_to('department') ?>"><span class="micon dw dw-user-3"></span> Department </a></li>
+            <li><a href="<?= route_to('organization') ?>"><span class="micon dw dw-user-11"></span> Organization </a></li>
           </ul>
         </li>
 
         <li class="dropdown">
           <a href="javascript:;" class="dropdown-toggle">
-            <span class="micon bi bi-currency-dollar"></span><span class="mtext"> Payrolls & Slips</span>
+            <span class="micon bi bi-currency-dollar"></span><span class="mtext"> Payrolls & Slips </span>
           </a>
           <ul class="submenu">
             <li><a href="javascript:;"><span class="micon dw dw-reload"></span> Regular Cycle</a></li>
