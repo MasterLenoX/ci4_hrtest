@@ -370,7 +370,8 @@ class AdminController extends BaseController
         $errors = $validation->getErrors();
         return $this->response->setJSON(['status'=>0, 'token'=>csrf_hash(), 'error'=>$errors]);
       } else {
-        return $this->response->setJSON(['status'=>1, 'token'=>csrf_hash(), 'msg'=>'Form Validated....']);
+        // return $this->response->setJSON(['status'=>1, 'token'=>csrf_hash(), 'msg'=>'Form Validated....']);
+        
       }
       
     }
