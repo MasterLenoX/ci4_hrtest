@@ -29,6 +29,8 @@ $routes->group('admin', static function ($routes) {
 
     //Employee 
     $routes->get('employee', 'AdminController::employee', ['as' => 'employee']);
+    $routes->post('add-employee','AdminController::addEmployee', ['as'=>'add-employee']);
+    $routes->get('get-employees','AdminController::getEmployees', ['as'=>'get-employees']);
 
     //Department 
     $routes->get('department', 'AdminController::department', ['as' => 'department']);

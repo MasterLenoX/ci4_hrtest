@@ -100,13 +100,6 @@
             <li><a href="<?= route_to('users-page') ?>"><span class="micon dw dw-user-11"></span> Users</a></li>
           </ul>
         </li>
-        <!-- <li>
-          <a href="https://dropways.github.io/deskapp-free-single-page-website-template/" target="_blank" class="dropdown-toggle no-arrow">
-            <span class="micon bi bi-layout-text-window-reverse"></span>
-            <span class="mtext">Landing Page
-              <img src="/backend/vendors/images/coming-soon.png" alt="" width="25" /></span>
-          </a>
-        </li> -->
       </ul>
     </div>
   </div>

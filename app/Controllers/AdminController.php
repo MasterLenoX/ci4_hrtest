@@ -8,11 +8,21 @@ use CodeIgniter\HTTP\ResponseInterface;
 use App\Libraries\CIAuth;
 use App\Models\UsersModel;
 use App\Models\SettingsModel;
+use App\Models\EmployeesModel;
 use App\Libraries\Hash;
+use SSP;
+
 
 class AdminController extends BaseController
 {
   protected $helpers = ['url', 'form', 'CIMail', 'CIFunctions'];
+  protected $db;
+
+  public function __construct(){
+    require_once APPPATH.'ThirdParty/ssp.php';
+    $this->db = db_connect();
+  }
+
   public function index()
   {
     // echo 'Admin Dashboard home';
@@ -393,7 +403,7 @@ class AdminController extends BaseController
       
     }
   }
-
+// Start of Employee Page
   //Employee Page
   public function employee(){
     $data = array(
@@ -401,6 +411,157 @@ class AdminController extends BaseController
     );
     return view('backend/pages/201file/employees/employee', $data);
   }
+
+  //Create Employee
+  public function addEmployee(){
+    $request = \Config\Services::request();
+
+    if ( $request->isAJAX() ) {
+      $validation = \Config\Services::validation();
+
+      $this->validate([
+        'emp_firstname'=>[
+          'rules'=>'required',
+          'errors'=>[
+            'required'=>'Please, Enter your First Name'
+          ]
+        ],
+        'emp_midname'=>[
+          'rules'=>'required',
+          'errors'=>[
+            'required'=>'Please, Enter your Middle Name'
+          ]
+        ],
+        'emp_lastname'=>[
+          'rules'=>'required',
+          'errors'=>[
+            'required'=>'Please, Enter your Last name'
+          ]
+        ],
+        'emp_email_add'=>[
+          'rules'=>'required',
+          'errors'=>[
+            'required'=>'Please, Enter your Email Address'
+          ]
+        ],
+        'emp_contact_no'=>[
+          'rules'=>'required',
+          'errors'=>[
+            'required'=>'Please, Enter your Contact No.'
+          ]
+        ]
+      ]);
+
+      if( $validation->run() === FALSE){
+        $errors = $validation->getErrors();
+        return $this->response->setJSON(['status'=>0,'token'=>csrf_hash(),'error'=>$errors]);
+      }else{
+        // return $this->response->setJSON(['status'=>1,'token'=>csrf_hash(),'msg'=>'Employee Form Created Successfully....']);
+
+        $employee = new EmployeesModel();
+        $save = $employee->save([
+          'emp_id_no'=>$request->getVar(['emp_id_no']),
+          'emp_firstname'=>$request->getVar(['emp_firstname']),
+          'emp_midname'=>$request->getVar(['emp_midname']),
+          'emp_lastname'=>$request->getVar(['emp_lastname']),
+          'emp_dob'=>$request->getVar(['emp_dob']),
+          'emp_pob'=>$request->getVar(['emp_pob']),
+          'emp_location_add'=>$request->getVar(['emp_location_add']),
+          'emp_email_add'=>$request->getVar(['emp_email_add']),
+          'emp_contact_no'=>$request->getVar(['emp_contact_no']),
+        ]);
+
+        if ( $save ) {
+          return $this->response->setJSON(['status'=>1,'token'=>csrf_hash(), 'msg'=>'New Employee has been created successfully']);
+        } else {
+          return $this->response->setJSON(['status'=>0,'token'=>csrf_hash(), 'msg'=>'Something went wrong']);
+        }
+       
+      }
+    }
+  }
+
+  //get Employees
+  public function getEmployees(){
+    //DB Details
+    $dbDetails = array(
+      "host"=>$this->db->hostname,
+      "user"=>$this->db->username,
+      "pass"=>$this->db->password,
+      "db"=>$this->db->database
+    );
+
+    $table = "employees";
+    $primarykey = "id";
+    $columns = array(
+      array(
+        "db"=>"id",
+        "dt"=>0
+      ),
+      array(
+        "db"=>"emp_id_no",
+        "dt"=>1
+      ),
+      array(
+        "db"=>"emp_firstname",
+        "dt"=>2
+      ),
+      array(
+        "db"=>"emp_midname",
+        "dt"=>3
+      ),
+      array(
+        "db"=>"emp_lastname",
+        "dt"=>4
+      ),
+      array(
+        "db"=>"emp_dob",
+        "dt"=>5
+      ),
+      array(
+        "db"=>"emp_pob",
+        "dt"=>6
+      ),
+      array(
+        "db"=>"emp_location_add",
+        "dt"=>7
+      ),
+      array(
+        "db"=>"emp_email_add",
+        "dt"=>8
+      ),
+      array(
+        "db"=>"emp_contact_no",
+        "dt"=>10
+      ),
+      array(
+        "db"=>"id",
+        "dt"=>11,
+        "formatter"=>function($d, $row){
+          return "<div class='btn-group'>
+            <button class='btn btn-success btn-sm rounded-pill p-0 mx-1 editEmployeeBtn' data='".$row['id']."'>Edit</button>
+            <button class='btn btn-danger btn-sm rounded-pill p-0 mx-1 deleteEmployeeBtn' data='".$row['id']."'>Delete</button>
+          </div>";
+        }
+      ),
+      
+    );
+  }
+
+  // 'emp_id_no'=>$request->getVar(['emp_id_no']),
+  // 'emp_firstname'=>$request->getVar(['emp_firstname']),
+  // 'emp_midname'=>$request->getVar(['emp_midname']),
+  // 'emp_lastname'=>$request->getVar(['emp_lastname']),
+  // 'emp_dob'=>$request->getVar(['emp_dob']),
+  // 'emp_pob'=>$request->getVar(['emp_pob']),
+  // 'emp_location_add'=>$request->getVar(['emp_location_add']),
+  // 'emp_email_add'=>$request->getVar(['emp_email_add']),
+  // 'emp_contact_no'=>$request->getVar(['emp_contact_no']),
+
+
+// End of Employee Page
+
+
 
   //Department Page
   public function department(){
