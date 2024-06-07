@@ -18,8 +18,9 @@ class AdminController extends BaseController
   protected $helpers = ['url', 'form', 'CIMail', 'CIFunctions'];
   protected $db;
 
-  public function __construct(){
-    require_once APPPATH.'ThirdParty/ssp.php';
+  public function __construct()
+  {
+    require_once APPPATH . 'ThirdParty/ssp.php';
     $this->db = db_connect();
   }
 
@@ -54,7 +55,8 @@ class AdminController extends BaseController
     return view('backend/pages/users/settings', $data);
   }
 
-  public function usersPage(){
+  public function usersPage()
+  {
     $data = array(
       'pageTitle' => 'Table of Users || CI4 HRIS Test'
     );
@@ -235,177 +237,175 @@ class AdminController extends BaseController
             'required' => 'Blog Title is required'
           ]
         ],
-        'blog_email'=>[
-          'rules'=>'required|valid_email',
-          'errors'=>[
-            'required'=>'Blog Email is required',
-            'valid_email'=>'Invalid Email Address'
+        'blog_email' => [
+          'rules' => 'required|valid_email',
+          'errors' => [
+            'required' => 'Blog Email is required',
+            'valid_email' => 'Invalid Email Address'
           ]
         ]
       ]);
 
-      if( $validation->run() === FALSE ){
+      if ($validation->run() === FALSE) {
         $errors = $validation->getErrors();
-        return $this->response->setJSON(['status'=>0, 'token'=>csrf_hash(),'error'=>$errors]);
-      }else {
+        return $this->response->setJSON(['status' => 0, 'token' => csrf_hash(), 'error' => $errors]);
+      } else {
         $settings = new SettingsModel();
         $setting_id = $settings->asObject()->first()->id;
-        $update = $settings->where('id',$setting_id)
-                           ->set([
-                            'blog_title'=>$request->getVar('blog_title'),
-                            'blog_email'=>$request->getVar('blog_email'),
-                            'blog_phone'=>$request->getVar('blog_phone'),
-                            'blog_meta_keywords'=>$request->getVar('blog_meta_keywords'),
-                            'blog_meta_desc'=>$request->getVar('blog_meta_desc'),
-                           ])->update();
-        
-        if ( $update ) {
-          return $this->response->setJSON(['status'=>1, 'token'=>csrf_hash(),'msg'=>'Good. General Settings Updated Successfully']);
-        } else {
-          return $this->response->setJSON(['status'=>0, 'token'=>csrf_hash(),'msg'=>'Something went wrong']);
-        }
-        
+        $update = $settings->where('id', $setting_id)
+          ->set([
+            'blog_title' => $request->getVar('blog_title'),
+            'blog_email' => $request->getVar('blog_email'),
+            'blog_phone' => $request->getVar('blog_phone'),
+            'blog_meta_keywords' => $request->getVar('blog_meta_keywords'),
+            'blog_meta_desc' => $request->getVar('blog_meta_desc'),
+          ])->update();
 
+        if ($update) {
+          return $this->response->setJSON(['status' => 1, 'token' => csrf_hash(), 'msg' => 'Good. General Settings Updated Successfully']);
+        } else {
+          return $this->response->setJSON(['status' => 0, 'token' => csrf_hash(), 'msg' => 'Something went wrong']);
+        }
       }
     }
   }
 
-  public function updateLogo(){
+  public function updateLogo()
+  {
     $request = \Config\Services::request();
 
-    if ( $request->isAJAX() ) {
+    if ($request->isAJAX()) {
       $settings = new SettingsModel();
       $path = 'images/blog/';
       $file = $request->getFile('blog_logo');
       $setting_data = $settings->asObject()->first();
       $old_logo = $setting_data->blog_logo;
-      $new_filename = 'CI4blog_logo'.$file->getRandomName();
+      $new_filename = 'CI4blog_logo' . $file->getRandomName();
 
-      if ( $file->move($path, $new_filename) ) {
-        if ( $old_logo != null && file_exists($path.$old_logo) ) {
-          unlink($path.$old_logo);
-        } 
-        $update = $settings->where('id',$setting_data->id)
-                           ->set(['blog_logo'=>$new_filename])
-                           ->update();
-        if ( $update ) {
-          return $this->response->setJSON(['status'=>1, 'token'=>csrf_hash(), 'msg'=>'Done! Uploading CI4 Logo has been successfully updated']);
-        } else {
-          return $this->response->setJSON(['status'=>0, 'token'=>csrf_hash(), 'msg'=>'Something wen wrong on updating new Logo info']);
+      if ($file->move($path, $new_filename)) {
+        if ($old_logo != null && file_exists($path . $old_logo)) {
+          unlink($path . $old_logo);
         }
-        
+        $update = $settings->where('id', $setting_data->id)
+          ->set(['blog_logo' => $new_filename])
+          ->update();
+        if ($update) {
+          return $this->response->setJSON(['status' => 1, 'token' => csrf_hash(), 'msg' => 'Done! Uploading CI4 Logo has been successfully updated']);
+        } else {
+          return $this->response->setJSON(['status' => 0, 'token' => csrf_hash(), 'msg' => 'Something wen wrong on updating new Logo info']);
+        }
       } else {
-        return json_encode(['status'=>0, 'token'=>csrf_hash(), 'msg'=>'Something went wrong on uploading a new logo']);
+        return json_encode(['status' => 0, 'token' => csrf_hash(), 'msg' => 'Something went wrong on uploading a new logo']);
       }
     }
   }
 
-  public function updateFavicon(){
+  public function updateFavicon()
+  {
     $request = \Config\Services::request();
 
-    if( $request->isAJAX() ){
+    if ($request->isAJAX()) {
       $settings = new SettingsModel();
       $path = 'images/blog/';
       $file = $request->getFile('blog_favicon');
       $setting_data = $settings->asObject()->first();
       $old_favicon = $setting_data->blog_favicon;
-      $new_filename = 'favicon_'.$file->getRandomName();
+      $new_filename = 'favicon_' . $file->getRandomName();
 
-      if ( $file->move($path, $new_filename) ) {
-        if( $old_favicon != null && file_exists($path.$old_favicon)){
-          unlink($path.$old_favicon);
+      if ($file->move($path, $new_filename)) {
+        if ($old_favicon != null && file_exists($path . $old_favicon)) {
+          unlink($path . $old_favicon);
         }
 
         $update = $settings->where('id', $setting_data->id)
-                           ->set(['blog_favicon'=>$new_filename])
-                           ->update();
+          ->set(['blog_favicon' => $new_filename])
+          ->update();
 
-        if ( $update ) {
-          return $this->response->setJSON(['status'=>1,'token'=>csrf_hash(), 'msg'=>'Done!! Favicon has been updated successfully']);
+        if ($update) {
+          return $this->response->setJSON(['status' => 1, 'token' => csrf_hash(), 'msg' => 'Done!! Favicon has been updated successfully']);
         } else {
-          return $this->response->setJSON(['status'=>0,'token'=>csrf_hash(), 'msg'=>'Something wen wrong on updating new Logo info']);
+          return $this->response->setJSON(['status' => 0, 'token' => csrf_hash(), 'msg' => 'Something wen wrong on updating new Logo info']);
         }
-
       } else {
-        return json_encode(['status'=>0, 'token'=>csrf_hash(), 'msg'=>'Something went wrong on uploading new Favicon']);
+        return json_encode(['status' => 0, 'token' => csrf_hash(), 'msg' => 'Something went wrong on uploading new Favicon']);
       }
     }
   }
 
 
-  public function updateSocialMedia(){
+  public function updateSocialMedia()
+  {
     $request = \Config\Services::request();
 
-    if( $request->isAJAX() ){
+    if ($request->isAJAX()) {
       $validation = \Config\Services::validation();
       $this->validate([
-        'facebook_url'=>[
-          'rules'=>'permit_empty|valid_url_strict',
-          'errors'=>[
-            'valid_url_strict'=>'Invalid Facebook URL',
+        'facebook_url' => [
+          'rules' => 'permit_empty|valid_url_strict',
+          'errors' => [
+            'valid_url_strict' => 'Invalid Facebook URL',
           ]
         ],
-        'twitter_url'=>[
-          'rules'=>'permit_empty|valid_url_strict',
-          'errors'=>[
-            'valid_url_strict'=>'Invalid Twitter URL',
+        'twitter_url' => [
+          'rules' => 'permit_empty|valid_url_strict',
+          'errors' => [
+            'valid_url_strict' => 'Invalid Twitter URL',
           ]
         ],
-        'instagram_url'=>[
-          'rules'=>'permit_empty|valid_url_strict',
-          'errors'=>[
-            'valid_url_strict'=>'Invalid Instagram URL',
+        'instagram_url' => [
+          'rules' => 'permit_empty|valid_url_strict',
+          'errors' => [
+            'valid_url_strict' => 'Invalid Instagram URL',
           ]
         ],
-        'youtube_url'=>[
-          'rules'=>'permit_empty|valid_url_strict',
-          'errors'=>[
-            'valid_url_strict'=>'Invalid YouTube URL',
+        'youtube_url' => [
+          'rules' => 'permit_empty|valid_url_strict',
+          'errors' => [
+            'valid_url_strict' => 'Invalid YouTube URL',
           ]
         ],
-        'github_url'=>[
-          'rules'=>'permit_empty|valid_url_strict',
-          'errors'=>[
-            'valid_url_strict'=>'Invalid GitHub URL',
+        'github_url' => [
+          'rules' => 'permit_empty|valid_url_strict',
+          'errors' => [
+            'valid_url_strict' => 'Invalid GitHub URL',
           ]
         ],
-        'linkedin_url'=>[
-          'rules'=>'permit_empty|valid_url_strict',
-          'errors'=>[
-            'valid_url_strict'=>'Invalid LinkedIn URL',
+        'linkedin_url' => [
+          'rules' => 'permit_empty|valid_url_strict',
+          'errors' => [
+            'valid_url_strict' => 'Invalid LinkedIn URL',
           ]
         ],
-      ]);      
+      ]);
 
-      if ( $validation->run() === FALSE ) {
+      if ($validation->run() === FALSE) {
         $errors = $validation->getErrors();
-        return $this->response->setJSON(['status'=>0, 'token'=>csrf_hash(), 'error'=>$errors]);
+        return $this->response->setJSON(['status' => 0, 'token' => csrf_hash(), 'error' => $errors]);
       } else {
         // return $this->response->setJSON(['status'=>1, 'token'=>csrf_hash(), 'msg'=>'Form Validated....']);
         $social_media = new SocialMediaModel();
         $social_media_id = $social_media->asObject()->first()->id;
-        $update = $social_media->where('id',$social_media_id)
-                               ->set([
-                                'facebook_url'=>$request->getVar('facebook_url'),
-                                'twitter_url'=>$request->getVar('twitter_url'),
-                                'instagram_url'=>$request->getVar('instagram_url'),
-                                'youtube_url'=>$request->getVar('youtube_url'),
-                                'github_url'=>$request->getVar('github_url'),
-                                'linkedin_url'=>$request->getVar('linkedin_url'),
-                               ])->update();
-        if ( $update ) {
-          return $this->response->setJSON(['status'=>1, 'token'=>csrf_hash(), 'msg'=>'Done!! User Settings Social Media have been successfully updated.']);
+        $update = $social_media->where('id', $social_media_id)
+          ->set([
+            'facebook_url' => $request->getVar('facebook_url'),
+            'twitter_url' => $request->getVar('twitter_url'),
+            'instagram_url' => $request->getVar('instagram_url'),
+            'youtube_url' => $request->getVar('youtube_url'),
+            'github_url' => $request->getVar('github_url'),
+            'linkedin_url' => $request->getVar('linkedin_url'),
+          ])->update();
+        if ($update) {
+          return $this->response->setJSON(['status' => 1, 'token' => csrf_hash(), 'msg' => 'Done!! User Settings Social Media have been successfully updated.']);
         } else {
-          return $this->response->setJSON(['status'=>0, 'token'=>csrf_hash(), 'msg'=>'Something went wrong on updating users social media.']);
+          return $this->response->setJSON(['status' => 0, 'token' => csrf_hash(), 'msg' => 'Something went wrong on updating users social media.']);
         }
-         
       }
-      
     }
   }
-// Start of Employee Page
+  // Start of Employee Page
   //Employee Page
-  public function employee(){
+  public function employee()
+  {
     $data = array(
       'pageTitle' => 'Employee Page || CI4 HRIS Test'
     );
@@ -413,138 +413,149 @@ class AdminController extends BaseController
   }
 
   //Create Employee
-  public function addEmployee(){
+  public function addEmployee()
+  {
     $request = \Config\Services::request();
 
-    if ( $request->isAJAX() ) {
+    if ($request->isAJAX()) {
       $validation = \Config\Services::validation();
 
       $this->validate([
-        'emp_firstname'=>[
-          'rules'=>'required',
-          'errors'=>[
-            'required'=>'Please, Enter your First Name'
+        'emp_firstname' => [
+          'rules' => 'required',
+          'errors' => [
+            'required' => 'Please, Enter your First Name'
           ]
         ],
-        'emp_midname'=>[
-          'rules'=>'required',
-          'errors'=>[
-            'required'=>'Please, Enter your Middle Name'
+        'emp_midname' => [
+          'rules' => 'required',
+          'errors' => [
+            'required' => 'Please, Enter your Middle Name'
           ]
         ],
-        'emp_lastname'=>[
-          'rules'=>'required',
-          'errors'=>[
-            'required'=>'Please, Enter your Last name'
+        'emp_lastname' => [
+          'rules' => 'required',
+          'errors' => [
+            'required' => 'Please, Enter your Last name'
           ]
         ],
-        'emp_email_add'=>[
-          'rules'=>'required',
-          'errors'=>[
-            'required'=>'Please, Enter your Email Address'
+        'emp_email_add' => [
+          'rules' => 'required',
+          'errors' => [
+            'required' => 'Please, Enter your Email Address'
           ]
         ],
-        'emp_contact_no'=>[
-          'rules'=>'required',
-          'errors'=>[
-            'required'=>'Please, Enter your Contact No.'
+        'emp_contact_no' => [
+          'rules' => 'required',
+          'errors' => [
+            'required' => 'Please, Enter your Contact No.'
           ]
         ]
       ]);
 
-      if( $validation->run() === FALSE){
+      if ($validation->run() === FALSE) {
         $errors = $validation->getErrors();
-        return $this->response->setJSON(['status'=>0,'token'=>csrf_hash(),'error'=>$errors]);
-      }else{
+        return $this->response->setJSON(['status' => 0, 'token' => csrf_hash(), 'error' => $errors]);
+      } else {
         // return $this->response->setJSON(['status'=>1,'token'=>csrf_hash(),'msg'=>'Employee Form Created Successfully....']);
 
         $employee = new EmployeesModel();
         $save = $employee->save([
-          'emp_id_no'=>$request->getVar(['emp_id_no']),
-          'emp_firstname'=>$request->getVar(['emp_firstname']),
-          'emp_midname'=>$request->getVar(['emp_midname']),
-          'emp_lastname'=>$request->getVar(['emp_lastname']),
-          'emp_dob'=>$request->getVar(['emp_dob']),
-          'emp_pob'=>$request->getVar(['emp_pob']),
-          'emp_location_add'=>$request->getVar(['emp_location_add']),
-          'emp_email_add'=>$request->getVar(['emp_email_add']),
-          'emp_contact_no'=>$request->getVar(['emp_contact_no']),
+          'emp_id_no' => $request->getVar(['emp_id_no']),
+          'emp_firstname' => $request->getVar(['emp_firstname']),
+          'emp_midname' => $request->getVar(['emp_midname']),
+          'emp_lastname' => $request->getVar(['emp_lastname']),
+          'emp_dob' => $request->getVar(['emp_dob']),
+          'emp_pob' => $request->getVar(['emp_pob']),
+          'emp_location_add' => $request->getVar(['emp_location_add']),
+          'emp_email_add' => $request->getVar(['emp_email_add']),
+          'emp_contact_no' => $request->getVar(['emp_contact_no']),
         ]);
 
-        if ( $save ) {
-          return $this->response->setJSON(['status'=>1,'token'=>csrf_hash(), 'msg'=>'New Employee has been created successfully']);
+        if ($save) {
+          return $this->response->setJSON(['status' => 1, 'token' => csrf_hash(), 'msg' => 'New Employee has been created successfully']);
         } else {
-          return $this->response->setJSON(['status'=>0,'token'=>csrf_hash(), 'msg'=>'Something went wrong']);
+          return $this->response->setJSON(['status' => 0, 'token' => csrf_hash(), 'msg' => 'Something went wrong']);
         }
-       
       }
     }
   }
 
   //get Employees
-  public function getEmployees(){
+  public function getEmployees()
+  {
     //DB Details
     $dbDetails = array(
-      "host"=>$this->db->hostname,
-      "user"=>$this->db->username,
-      "pass"=>$this->db->password,
-      "db"=>$this->db->database
+      "host" => $this->db->hostname,
+      "user" => $this->db->username,
+      "pass" => $this->db->password,
+      "db" => $this->db->database
     );
 
     $table = "employees";
     $primarykey = "id";
     $columns = array(
       array(
-        "db"=>"id",
-        "dt"=>0
+        "db" => "id",
+        "dt" => 0
       ),
       array(
-        "db"=>"emp_id_no",
-        "dt"=>1
+        "db" => "emp_id_no",
+        "dt" => 1
       ),
       array(
-        "db"=>"emp_firstname",
-        "dt"=>2
+        "db" => "emp_firstname",
+        "dt" => 2
       ),
       array(
-        "db"=>"emp_midname",
-        "dt"=>3
+        "db" => "emp_midname",
+        "dt" => 3
       ),
       array(
-        "db"=>"emp_lastname",
-        "dt"=>4
+        "db" => "emp_lastname",
+        "dt" => 4
       ),
       array(
-        "db"=>"emp_dob",
-        "dt"=>5
+        "db" => "emp_dob",
+        "dt" => 5
       ),
       array(
-        "db"=>"emp_pob",
-        "dt"=>6
+        "db" => "emp_pob",
+        "dt" => 6
       ),
       array(
-        "db"=>"emp_location_add",
-        "dt"=>7
+        "db" => "emp_location_add",
+        "dt" => 7
       ),
       array(
-        "db"=>"emp_email_add",
-        "dt"=>8
+        "db" => "emp_email_add",
+        "dt" => 8
       ),
       array(
-        "db"=>"emp_contact_no",
-        "dt"=>10
+        "db" => "emp_contact_no",
+        "dt" => 9
       ),
       array(
-        "db"=>"id",
-        "dt"=>11,
-        "formatter"=>function($d, $row){
+        "db" => "id",
+        "dt" => 10,
+        "formatter" => function ($d, $row) {
           return "<div class='btn-group'>
-            <button class='btn btn-success btn-sm rounded-pill p-0 mx-1 editEmployeeBtn' data='".$row['id']."'>Edit</button>
-            <button class='btn btn-danger btn-sm rounded-pill p-0 mx-1 deleteEmployeeBtn' data='".$row['id']."'>Delete</button>
+            <button class='btn btn-success btn-sm rounded-pill p-2 mx-1 editEmployeeBtn' data='" . $row['id'] . "'>
+              <span class='micon ti-pencil-alt'></span>
+            </button>
+            <button class='btn btn-info btn-sm rounded-pill p-2 mx-1 searchEmployeeBtn' data='" . $row['id'] . "'>
+              <span class='micon ti-search'></span>
+            </button>
+            <button class='btn btn-danger btn-sm rounded-pill p-2 mx-1 deleteEmployeeBtn' data='" . $row['id'] . "'>
+              <span class='micon ti-trash'></span>
+            </button>
           </div>";
         }
       ),
-      
+    );
+
+    return json_encode(
+      SSP::simple($_GET, $dbDetails, $table, $primarykey, $columns)
     );
   }
 
@@ -559,12 +570,13 @@ class AdminController extends BaseController
   // 'emp_contact_no'=>$request->getVar(['emp_contact_no']),
 
 
-// End of Employee Page
+  // End of Employee Page
 
 
 
   //Department Page
-  public function department(){
+  public function department()
+  {
     $data = array(
       'pageTitle' => 'Department Page || CI4 HRIS Test'
     );
@@ -572,7 +584,8 @@ class AdminController extends BaseController
   }
 
   //Organization Page
-  public function organization(){
+  public function organization()
+  {
     $data = array(
       'pageTitle' => 'Orgazization Page || CI4 HRIS Test'
     );

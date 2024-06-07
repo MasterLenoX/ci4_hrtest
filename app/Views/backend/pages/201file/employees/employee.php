@@ -46,9 +46,10 @@
               <tr>
                 <th scope="col">#</th>
                 <th scope="col">Employee ID</th>
-                <th scope="col">Lastname</th>
-                <th scope="col">Middlename</th>
+                <!-- <th scope="col" colspan="3">Employee Name</th> -->
                 <th scope="col">Firstname</th>
+                <th scope="col">Middlename</th>
+                <th scope="col">Lastname</th>
                 <th scope="col">Date of Birth</th>
                 <th scope="col">Place of Birth</th>
                 <th scope="col">Employee Address</th>
@@ -57,23 +58,7 @@
                 <th scope="col">Action</th>
               </tr>
             </thead>
-            <tbody>
-              <!-- <tr>
-                <td scope="row">1</td>
-                <td>-----</td>
-                <td>-----</td>
-                <td>-----</td>
-                <td>-----</td>
-                <td>
-                  <a href="" class="btn btn-success btn-sm rounded-pill" data-bg-color="#006F58">
-                    <span class="micon ti-pencil-alt"></span>
-                  </a>
-                  <a href="" class="btn btn-danger btn-sm rounded-pill" data-bg-color="#C70B0B">
-                    <span class="micon ti-trash"></span>
-                  </a>
-                </td>
-              </tr> -->
-            </tbody>
+            <tbody></tbody>
           </table>
         </div>
       </div>
@@ -167,9 +152,11 @@
         $('.ci_csrf_data').val(response.token);
 
         if ($.isEmptyObject(response.error)) {
-          if (response.status == 1) {
+          if ( response.status == 1) {
             $(form)[0].reset();
+            modal.modal(hide);
             toastr.success(response.msg);
+            employees_DT.ajax.reload(null, false);
           } else {
             toastr.error(response.msg);
           }
@@ -196,7 +183,7 @@
       { orderable:false, targets:[0,1,2,3,4,5,6,7,8,9,10] },
       { visible:false, targets: 11 }
     ],
-    order: [[10, 'asc']]
+    order: [[11, 'asc']]
   });
   
 </script>
