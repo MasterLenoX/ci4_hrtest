@@ -154,7 +154,7 @@
         if ($.isEmptyObject(response.error)) {
           if ( response.status == 1) {
             $(form)[0].reset();
-            modal.modal(hide);
+            modal.modal('hide');
             toastr.success(response.msg);
             employees_DT.ajax.reload(null, false);
           } else {
