@@ -559,15 +559,10 @@ class AdminController extends BaseController
     );
   }
 
-  // 'emp_id_no'=>$request->getVar(['emp_id_no']),
-  // 'emp_firstname'=>$request->getVar(['emp_firstname']),
-  // 'emp_midname'=>$request->getVar(['emp_midname']),
-  // 'emp_lastname'=>$request->getVar(['emp_lastname']),
-  // 'emp_dob'=>$request->getVar(['emp_dob']),
-  // 'emp_pob'=>$request->getVar(['emp_pob']),
-  // 'emp_location_add'=>$request->getVar(['emp_location_add']),
-  // 'emp_email_add'=>$request->getVar(['emp_email_add']),
-  // 'emp_contact_no'=>$request->getVar(['emp_contact_no']),
+  //get employee id for update
+  public function getEmployee(){
+    
+  }
 
 
   // End of Employee Page

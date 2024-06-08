@@ -46,7 +46,6 @@
               <tr>
                 <th scope="col">#</th>
                 <th scope="col">Employee ID</th>
-                <!-- <th scope="col" colspan="3">Employee Name</th> -->
                 <th scope="col">Firstname</th>
                 <th scope="col">Middlename</th>
                 <th scope="col">Lastname</th>
@@ -67,7 +66,7 @@
 </div>
 
 <?php include('empmodals/add_emp_modal.php') ?>
-
+<?php include('empmodals/edit_emp_modal.php') ?>
 
 <?= $this->endSection() ?>
 <?= $this->section('stylesheets') ?>
@@ -186,5 +185,24 @@
     order: [[11, 'asc']]
   });
   
+  $(document).on('click','.editEmployeeBtn', function(e){
+    e.preventDefault();
+    // alert('Open Edit Employee Form...');
+    var employee_id = $(this).data('id');
+    // alert(employee_id);
+    var url = "<?= route_to('get-employee') ?>";
+    $.get(url, { employee_id:employee_id }, function(response){
+      var modal_title = 'Edit Employee';
+      var modal_btn_text = 'Save Changes';
+      var modal = $('body').find('div#edit-employee-modal');
+      modal.find('form').find('input[type="hidden"][name="emp_id_no"]').val(employee_id);
+      modal.find('.modal-title').html(modal_title);
+      modal.find('.modal-footer > button.action').html(modal_btn_text);
+      modal.find('input[type="text"]').val(response.data.name);
+      modal.find('span.error-text').html('');
+      modal.modal('show');
+    }, 'json');
+  });
+
 </script>
 <?= $this->endSection() ?>
