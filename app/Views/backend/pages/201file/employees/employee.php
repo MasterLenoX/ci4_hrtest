@@ -204,5 +204,47 @@
     }, 'json');
   });
 
+  $('#update_employee_form').on('submit', function(e){
+    e.preventDefault();
+    // alert('Employee Information Updated Successfully');
+    var csrfName = $('.ci_csrf_data').attr('name');
+    var csrfHash = $('.ci_csrf_data').val();
+    var form = this;
+    var modal = $('body').find('div#edit-employee-modal');
+    var formData = new FormData();
+        formData.append(csrfName, csrfHash);
+
+    $.ajax({
+      url: $(form).attr('action'),
+      method: $(form).attr('method'),
+      data:formData,
+      processData: false,
+      dataType: 'json',
+      contentType: false,
+      cache:false,
+      beforeSend:function(){
+        toastr.remove();
+        $(form).find('span.error-text');
+      },
+      success: function(response){
+        $('.ci_csrf_data').val(response.token);
+
+        if ( $.isEmptyObject(response.error) ) {
+            if(response.status == 1){
+              modal.modal('hide');
+              toastr.success(response.msg);
+              employees_DT.ajax.reload(null, false);
+            }else{
+              toastr.error(response.msg);
+            }
+        } else {
+          $.each(response.error, function(prefix, val){
+            $(form).find('span.'+prefix+'_error').text(val);
+          });
+        }
+      }
+    });
+  });
+
 </script>
 <?= $this->endSection() ?>

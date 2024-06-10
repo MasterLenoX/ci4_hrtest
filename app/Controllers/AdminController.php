@@ -564,7 +564,7 @@ class AdminController extends BaseController
     $request = \Config\Services::request();
 
     if( $request->isAJAX() ){
-      $id = $request->getVar('employee_id');
+      $id = $request->getVar('emp_id_no');
       $employee = new EmployeesModel();
       $employee_data = $employee->find($id);
       return $this->response->setJSON(['data'=>$employee_data]);
@@ -573,7 +573,15 @@ class AdminController extends BaseController
   }
 
   public function updateEmployee(){
-    
+    $request = \Config\Services::request();
+
+    if($request->isAJAX()){
+      $id = $request->getVar('emp_id_no');
+      $validation = \Config\Services::validation();
+
+      
+    }
+
   }
 
 
