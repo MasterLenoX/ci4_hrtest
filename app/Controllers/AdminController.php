@@ -561,6 +561,18 @@ class AdminController extends BaseController
 
   //get employee id for update
   public function getEmployee(){
+    $request = \Config\Services::request();
+
+    if( $request->isAJAX() ){
+      $id = $request->getVar('employee_id');
+      $employee = new EmployeesModel();
+      $employee_data = $employee->find($id);
+      return $this->response->setJSON(['data'=>$employee_data]);
+    }
+
+  }
+
+  public function updateEmployee(){
     
   }
 
