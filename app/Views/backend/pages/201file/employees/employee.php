@@ -47,13 +47,13 @@
                 <th scope="col">#</th>
                 <th scope="col">Employee ID</th>
                 <th scope="col">Firstname</th>
-                <th scope="col">Middlename</th>
+                <!-- <th scope="col">Middlename</th> -->
                 <th scope="col">Lastname</th>
-                <th scope="col">Date of Birth</th>
-                <th scope="col">Place of Birth</th>
+                <!-- <th scope="col">Date of Birth</th>
+                <th scope="col">Place of Birth</th> -->
                 <th scope="col">Employee Address</th>
                 <th scope="col">Employee Email</th>
-                <th scope="col">Employee Contact</th>
+                <!-- <th scope="col">Employee Contact</th> -->
                 <th scope="col">Action</th>
               </tr>
             </thead>
@@ -70,9 +70,9 @@
 
 <?= $this->endSection() ?>
 <?= $this->section('stylesheets') ?>
-  <link rel="stylesheet" href="/backend/src/plugins/datatables/css/dataTables.bootstrap4.min.css">
-  <link rel="stylesheet" href="/backend/src/plugins/datatables/css/responsive.bootstrap4.min.css">
-<?= $this->endSection()?>
+<link rel="stylesheet" href="/backend/src/plugins/datatables/css/dataTables.bootstrap4.min.css">
+<link rel="stylesheet" href="/backend/src/plugins/datatables/css/responsive.bootstrap4.min.css">
+<?= $this->endSection() ?>
 <?= $this->section('scripts') ?>
 <script src="/backend/src/plugins/datatables/js/jquery.dataTables.min.js"></script>
 <script src="/backend/src/plugins/datatables/js/dataTables.bootstrap4.min.js"></script>
@@ -151,7 +151,7 @@
         $('.ci_csrf_data').val(response.token);
 
         if ($.isEmptyObject(response.error)) {
-          if ( response.status == 1) {
+          if (response.status == 1) {
             $(form)[0].reset();
             modal.modal('hide');
             toastr.success(response.msg);
@@ -170,28 +170,43 @@
 
   //Retrieve Employee Table
   var employees_DT = $('#employee-table').DataTable({
-    processing:true,
-    serverSide:true,
-    ajax:"<?= route_to('get-employees') ?>",
+    processing: true,
+    serverSide: true,
+    ajax: "<?= route_to('get-employees') ?>",
     dom: "Brtip",
     info: true,
-    fnCreatedRow:function(row, data, index){
-      $('td', row).eq(0).html(index+1);
+    fnCreatedRow: function(row, data, index) {
+      $('td', row).eq(0).html(index + 1);
     },
-    columnDefs:[
-      { orderable:false, targets:[0,1,2,3,4,5,6,7,8,9,10] },
-      { visible:false, targets: 11 }
+    columnDefs: [
+      // {
+      //   orderable: false,
+      //   targets: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+      // },
+      {
+        orderable: false,
+        // targets: [0, 1, 2, 4, 7, 8, 10]
+        targets: [0, 1, 2, 3, 4, 5, 6]
+      },
+      {
+        visible: false,
+        targets: 7
+      }
     ],
-    order: [[11, 'asc']]
+    order: [
+      [7, 'asc']
+    ]
   });
-  
-  $(document).on('click','.editEmployeeBtn', function(e){
+
+  $(document).on('click', '.editEmployeeBtn', function(e) {
     e.preventDefault();
     // alert('Open Edit Employee Form...');
     var employee_id = $(this).data('id');
     // alert(employee_id);
     var url = "<?= route_to('get-employee') ?>";
-    $.get(url, { employee_id:employee_id }, function(response){
+    $.get(url, {
+      employee_id: employee_id
+    }, function(response) {
       var modal_title = 'Edit Employee';
       var modal_btn_text = 'Save Changes';
       var modal = $('body').find('div#edit-employee-modal');
@@ -204,7 +219,7 @@
     }, 'json');
   });
 
-  $('#update_employee_form').on('submit', function(e){
+  $('#update_employee_form').on('submit', function(e) {
     e.preventDefault();
     // alert('Employee Information Updated Successfully');
     var csrfName = $('.ci_csrf_data').attr('name');
@@ -212,39 +227,38 @@
     var form = this;
     var modal = $('body').find('div#edit-employee-modal');
     var formData = new FormData();
-        formData.append(csrfName, csrfHash);
+    formData.append(csrfName, csrfHash);
 
     $.ajax({
       url: $(form).attr('action'),
       method: $(form).attr('method'),
-      data:formData,
+      data: formData,
       processData: false,
       dataType: 'json',
       contentType: false,
-      cache:false,
-      beforeSend:function(){
+      cache: false,
+      beforeSend: function() {
         toastr.remove();
         $(form).find('span.error-text');
       },
-      success: function(response){
+      success: function(response) {
         $('.ci_csrf_data').val(response.token);
 
-        if ( $.isEmptyObject(response.error) ) {
-            if(response.status == 1){
-              modal.modal('hide');
-              toastr.success(response.msg);
-              employees_DT.ajax.reload(null, false);
-            }else{
-              toastr.error(response.msg);
-            }
+        if ($.isEmptyObject(response.error)) {
+          if (response.status == 1) {
+            modal.modal('hide');
+            toastr.success(response.msg);
+            employees_DT.ajax.reload(null, false);
+          } else {
+            toastr.error(response.msg);
+          }
         } else {
-          $.each(response.error, function(prefix, val){
-            $(form).find('span.'+prefix+'_error').text(val);
+          $.each(response.error, function(prefix, val) {
+            $(form).find('span.' + prefix + '_error').text(val);
           });
         }
       }
     });
   });
-
 </script>
 <?= $this->endSection() ?>

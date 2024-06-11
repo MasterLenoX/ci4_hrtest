@@ -507,37 +507,37 @@ class AdminController extends BaseController
         "db" => "emp_firstname",
         "dt" => 2
       ),
-      array(
-        "db" => "emp_midname",
-        "dt" => 3
-      ),
+      // array(
+      //   "db" => "emp_midname",
+      //   "dt" => 3
+      // ),
       array(
         "db" => "emp_lastname",
+        "dt" => 3
+      ),
+      // array(
+      //   "db" => "emp_dob",
+      //   "dt" => 5
+      // ),
+      // array(
+      //   "db" => "emp_pob",
+      //   "dt" => 6
+      // ),
+      array(
+        "db" => "emp_location_add",
         "dt" => 4
       ),
       array(
-        "db" => "emp_dob",
+        "db" => "emp_email_add",
         "dt" => 5
       ),
-      array(
-        "db" => "emp_pob",
-        "dt" => 6
-      ),
-      array(
-        "db" => "emp_location_add",
-        "dt" => 7
-      ),
-      array(
-        "db" => "emp_email_add",
-        "dt" => 8
-      ),
-      array(
-        "db" => "emp_contact_no",
-        "dt" => 9
-      ),
+      // array(
+      //   "db" => "emp_contact_no",
+      //   "dt" => 9
+      // ),
       array(
         "db" => "id",
-        "dt" => 10,
+        "dt" => 6,
         "formatter" => function ($d, $row) {
           return "<div class='btn-group'>
             <button class='btn btn-success btn-sm rounded-pill p-2 mx-1 editEmployeeBtn' data='" . $row['id'] . "'>
@@ -579,7 +579,44 @@ class AdminController extends BaseController
       $id = $request->getVar('emp_id_no');
       $validation = \Config\Services::validation();
 
+      $this->validate([
+        'emp_id_no'=>[
+          'rules'=>'required|is_unique[employees.emp_id_no,id,'.$id.']',
+          'errors'=>[
+            'required'=>'Employee ID Number is required',
+            'is_unique'=>'Employee ID Number is already existed'
+          ]
+        ],
+        // 'emp_firstname'=>[
+        //   'rules'=>'required',
+        //   'errors'=>[
+        //     'required'=>'First Name is required',
+        //     'is_unique'=>''
+        //   ]
+        // ],
+        // 'emp_lastname'=>[
+        //   'rules'=>'required',
+        //   'errors'=>[
+        //     'required'=>'LastName is required',
+        //     'is_unique'=>''
+        //   ]
+        // ],
+        // 'emp_email_add'=>[
+        //   'rules'=>'required',
+        //   'errors'=>[
+        //     'required'=>'Employee Email is required'
+        //   ]
+        // ],
+      ]);
+
+      if ( $validation->run() === FALSE ) {
+        $errors =  $validation->getErrors();
+        return $this->response->setJSON(['status'=>0,'token'=>csrf_hash(),'error'=>$errors]);
+      } else {
+        return $this->response->setJSON(['status'=>1,'token'=>csrf_hash(),'msg'=>'Form Validated....']);
+      }
       
+
     }
 
   }
