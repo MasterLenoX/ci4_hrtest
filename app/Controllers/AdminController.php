@@ -613,7 +613,26 @@ class AdminController extends BaseController
         $errors =  $validation->getErrors();
         return $this->response->setJSON(['status'=>0,'token'=>csrf_hash(),'error'=>$errors]);
       } else {
-        return $this->response->setJSON(['status'=>1,'token'=>csrf_hash(),'msg'=>'Form Validated....']);
+        // return $this->response->setJSON(['status'=>1,'token'=>csrf_hash(),'msg'=>'Form Validated....']);
+        $employees = new EmployeesModel();
+        $update = $employees->where('id',$id)
+                            ->set([
+                              'emp_id_no' => $request->getVar(['emp_id_no']),
+                              'emp_firstname' => $request->getVar(['emp_firstname']),
+                              'emp_midname' => $request->getVar(['emp_midname']),
+                              'emp_lastname' => $request->getVar(['emp_lastname']),
+                              'emp_dob' => $request->getVar(['emp_dob']),
+                              'emp_pob' => $request->getVar(['emp_pob']),
+                              'emp_location_add' => $request->getVar(['emp_location_add']),
+                              'emp_email_add' => $request->getVar(['emp_email_add']),
+                              'emp_contact_no' => $request->getVar(['emp_contact_no']),
+                            ])->update();
+        if ( $update ) {
+          return $this->response->setJSON(['status'=>1, 'token'=>csrf_hash(), 'msg'=>'Employee Information has been updated successfully']);
+        } else {
+          return $this->response->setJSON(['status'=>0, 'token'=>csrf_hash(), 'msg'=>'Something went wrong in Updating']);
+        }
+        
       }
       
 

@@ -13,7 +13,7 @@
         <input type="hidden" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>" class="ci_csrf_data">
         <div class="form-group">
           <label for="">Employee ID No.</label>
-          <input type="text" name="emp_id_no" class="form-control" placeholder="Enter Employee ID No">
+          <input type="text" name="emp_id_no" class="form-control" value="<?= get_ ?>" placeholder="Enter Employee ID No">
           <span class="text-danger error-text emp_id_no_error"></span>
         </div>
         <div class="row">
