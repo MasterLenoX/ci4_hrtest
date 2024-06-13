@@ -46,15 +46,16 @@
               <tr>
                 <th scope="col">#</th>
                 <th scope="col">Employee ID</th>
-                <th scope="col">Firstname</th>
-                <!-- <th scope="col">Middlename</th> -->
-                <th scope="col">Lastname</th>
+                <th scope="col">Employeee Firstname</th>
+                <!-- <th scope="col">Employeee Middlename</th> -->
+                <th scope="col">Employeee Lastname</th>
                 <!-- <th scope="col">Date of Birth</th>
                 <th scope="col">Place of Birth</th> -->
-                <th scope="col">Employee Address</th>
+                <!-- <th scope="col">Employee Address</th> -->
                 <th scope="col">Employee Email</th>
                 <!-- <th scope="col">Employee Contact</th> -->
                 <th scope="col">Action</th>
+                <th scope="col">Ordering</th>
               </tr>
             </thead>
             <tbody></tbody>
@@ -102,38 +103,6 @@
     var formData = new FormData(form);
     formData.append(csrfName, csrfHash);
 
-    // $.ajax({
-    //   url: $(form).attr('action'),
-    //   method: $(form).attr('method'),
-    //   data: formData,
-    //   processData: false,
-    //   dataType: 'json',
-    //   contentType: false,
-    //   cache: false,
-    //   beforeSend:function(){
-    //     toastr.remove();
-    //     $(form).find('span.error-text').text('');
-    //   },     
-    //   success: function(response){
-    //     //Update CSRF Hash
-    //     $('.ci_csrf_data').val(response.token);
-
-    //     if ( $.isEmptyObject(response.error) ) {
-    //       if(response.status == 1){
-    //         $(form)[0].reset();
-    //         modal.modal(hide);
-    //         toastr.success(response.msg);
-    //       }else{
-    //         toastr.error(response.msg);
-    //       }
-    //     } else {
-    //       $.each(response.error, function(prefix, val){
-    //         $(form).find('span.'+prefix+'_error').text(val);
-    //       });
-    //     }
-    //   }
-    // });
-
     $.ajax({
       url: $(form).attr('action'),
       method: $(form).attr('method'),
@@ -179,43 +148,39 @@
       $('td', row).eq(0).html(index + 1);
     },
     columnDefs: [
-      // {
-      //   orderable: false,
-      //   targets: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-      // },
       {
         orderable: false,
-        targets: [0, 1, 2, 3, 4, 5, 6]
+        targets: [0, 1, 2, 3, 4, 5]
       },
       {
         visible: false,
-        targets: 7
+        targets: 6
       }
     ],
     order: [
-      [7, 'asc']
+      [6, 'asc']
     ]
   });
 
   $(document).on('click', '.editEmployeeBtn', function(e) {
     e.preventDefault();
     // alert('Open Edit Employee Form...');
-    var employee_id = $(this).data('id');
-    // alert(employee_id);
-    var url = "<?= route_to('get-employee') ?>";
-    $.get(url, {
-      employee_id: employee_id
-    }, function(response) {
-      var modal_title = 'Edit Employee';
-      var modal_btn_text = 'Save Changes';
-      var modal = $('body').find('div#edit-employee-modal');
-      modal.find('form').find('input[type="hidden"][name="emp_id_no"]').val(employee_id);
-      modal.find('.modal-title').html(modal_title);
-      modal.find('.modal-footer > button.action').html(modal_btn_text);
-      modal.find('input[type="text"]').val(response.data.name);
-      modal.find('span.error-text').html('');
-      modal.modal('show');
-    }, 'json');
+    var employee_id = $(this).data('emp_firstname');
+    alert(employee_id);
+    // var url = "<?= route_to('get-employee') ?>";
+    // $.get(url, {
+    //   employee_id: employee_id
+    // }, function(response) {
+    //   var modal_title = 'Edit Employee';
+    //   var modal_btn_text = 'Save Changes';
+    //   var modal = $('body').find('div#edit-employee-modal');
+    //   modal.find('form').find('input[type="hidden"][name="employee_id"]').val(employee_id);
+    //   modal.find('.modal-title').html(modal_title);
+    //   modal.find('.modal-footer > button.action').html(modal_btn_text);
+    //   modal.find('input[type="text"]').val(response.data.name);
+    //   modal.find('span.error-text').html('');
+    //   modal.modal('show');
+    // }, 'json');
   });
 
   $('#update_employee_form').on('submit', function(e) {

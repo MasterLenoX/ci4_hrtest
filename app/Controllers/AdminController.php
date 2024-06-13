@@ -523,13 +523,13 @@ class AdminController extends BaseController
       //   "db" => "emp_pob",
       //   "dt" => 6
       // ),
-      array(
-        "db" => "emp_location_add",
-        "dt" => 4
-      ),
+      // array(
+      //   "db" => "emp_location_add",
+      //   "dt" => 7
+      // ),
       array(
         "db" => "emp_email_add",
-        "dt" => 5
+        "dt" => 4
       ),
       // array(
       //   "db" => "emp_contact_no",
@@ -537,21 +537,22 @@ class AdminController extends BaseController
       // ),
       array(
         "db" => "id",
-        "dt" => 6,
+        "dt" => 5,
         "formatter" => function ($d, $row) {
           return "<div class='btn-group'>
-            <button class='btn btn-success btn-sm rounded-pill p-2 mx-1 editEmployeeBtn' data='" . $row['id'] . "'>
+            <button class='btn btn-success btn-sm rounded-pill p-2 mx-1 editEmployeeBtn' data-id='".$row['id']."'>
               <span class='micon ti-pencil-alt'></span>
             </button>
-            <button class='btn btn-info btn-sm rounded-pill p-2 mx-1 searchEmployeeBtn' data='" . $row['id'] . "'>
-              <span class='micon ti-search'></span>
-            </button>
-            <button class='btn btn-danger btn-sm rounded-pill p-2 mx-1 deleteEmployeeBtn' data='" . $row['id'] . "'>
+            <button class='btn btn-danger btn-sm rounded-pill p-2 mx-1 deleteEmployeeBtn' data-id='".$row['id']."'>
               <span class='micon ti-trash'></span>
             </button>
           </div>";
         }
       ),
+      array(
+        "db"=>"ordering",
+        "dt"=>6
+      )
     );
 
     return json_encode(
@@ -564,7 +565,7 @@ class AdminController extends BaseController
     $request = \Config\Services::request();
 
     if( $request->isAJAX() ){
-      $id = $request->getVar('emp_id_no');
+      $id = $request->getVar('employee_id');
       $employee = new EmployeesModel();
       $employee_data = $employee->find($id);
       return $this->response->setJSON(['data'=>$employee_data]);
@@ -576,37 +577,17 @@ class AdminController extends BaseController
     $request = \Config\Services::request();
 
     if($request->isAJAX()){
-      $id = $request->getVar('emp_id_no');
+      $id = $request->getVar('id');
       $validation = \Config\Services::validation();
 
       $this->validate([
         'emp_id_no'=>[
-          'rules'=>'required|is_unique[employees.emp_id_no,id,'.$id.']',
+          'rules'=>'required|is_unique[employees.emp_id_no,'.$id.']',
           'errors'=>[
             'required'=>'Employee ID Number is required',
             'is_unique'=>'Employee ID Number is already existed'
           ]
         ],
-        // 'emp_firstname'=>[
-        //   'rules'=>'required',
-        //   'errors'=>[
-        //     'required'=>'First Name is required',
-        //     'is_unique'=>''
-        //   ]
-        // ],
-        // 'emp_lastname'=>[
-        //   'rules'=>'required',
-        //   'errors'=>[
-        //     'required'=>'LastName is required',
-        //     'is_unique'=>''
-        //   ]
-        // ],
-        // 'emp_email_add'=>[
-        //   'rules'=>'required',
-        //   'errors'=>[
-        //     'required'=>'Employee Email is required'
-        //   ]
-        // ],
       ]);
 
       if ( $validation->run() === FALSE ) {
@@ -632,12 +613,8 @@ class AdminController extends BaseController
         } else {
           return $this->response->setJSON(['status'=>0, 'token'=>csrf_hash(), 'msg'=>'Something went wrong in Updating']);
         }
-        
       }
-      
-
     }
-
   }
 
 

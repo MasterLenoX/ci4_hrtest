@@ -17,7 +17,8 @@ class EmployeesModel extends Model
         'emp_pob',
         'emp_location_add',
         'emp_email_add',
-        'emp_contact_no'
+        'emp_contact_no',
+        'ordering'
     ];
 
 }

@@ -54,6 +54,7 @@ class CreateEmployeesTable extends Migration
         ]);
         $this->forge->addKey('id');
         $this->forge->createTable('employees');
+
     }
 
     public function down()
