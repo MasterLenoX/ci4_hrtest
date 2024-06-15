@@ -67,7 +67,7 @@
 </div>
 
 <?php include('empmodals/add_emp_modal.php') ?>
-<?php include('empmodals/edit_emp_modal.php') ?>
+<?php //include('empmodals/edit_emp_modal.php') ?>
 
 <?= $this->endSection() ?>
 <?= $this->section('stylesheets') ?>
