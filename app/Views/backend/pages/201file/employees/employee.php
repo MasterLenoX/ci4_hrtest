@@ -165,22 +165,22 @@
   $(document).on('click', '.editEmployeeBtn', function(e) {
     e.preventDefault();
     // alert('Open Edit Employee Form...');
-    var employee_id = $(this).data('emp_firstname');
-    alert(employee_id);
-    // var url = "<?= route_to('get-employee') ?>";
-    // $.get(url, {
-    //   employee_id: employee_id
-    // }, function(response) {
-    //   var modal_title = 'Edit Employee';
-    //   var modal_btn_text = 'Save Changes';
-    //   var modal = $('body').find('div#edit-employee-modal');
-    //   modal.find('form').find('input[type="hidden"][name="employee_id"]').val(employee_id);
-    //   modal.find('.modal-title').html(modal_title);
-    //   modal.find('.modal-footer > button.action').html(modal_btn_text);
-    //   modal.find('input[type="text"]').val(response.data.name);
-    //   modal.find('span.error-text').html('');
-    //   modal.modal('show');
-    // }, 'json');
+    var employee_id = $(this).data('id');
+    // alert(employee_id);
+    var url = "<?= route_to('get-employee') ?>";
+    $.get(url, {
+      employee_id: employee_id
+    }, function(response) {
+      var modal_title = 'Edit Employee';
+      var modal_btn_text = 'Save Changes';
+      var modal = $('body').find('div#edit-employee-modal');
+      modal.find('form').find('input[type="hidden"][name="employee_id"]').val(employee_id);
+      modal.find('.modal-title').html(modal_title);
+      modal.find('.modal-footer > button.action').html(modal_btn_text);
+      modal.find('input[type="text"]').val(response.data.name);
+      modal.find('span.error-text').html('');
+      modal.modal('show');
+    }, 'json');
   });
 
   $('#update_employee_form').on('submit', function(e) {
