@@ -67,7 +67,7 @@
 </div>
 
 <?php include('empmodals/add_emp_modal.php') ?>
-<?php //include('empmodals/edit_emp_modal.php') ?>
+<?php include('empmodals/edit_emp_modal.php') ?>
 
 <?= $this->endSection() ?>
 <?= $this->section('stylesheets') ?>
@@ -147,8 +147,7 @@
     fnCreatedRow: function(row, data, index) {
       $('td', row).eq(0).html(index + 1);
     },
-    columnDefs: [
-      {
+    columnDefs: [{
         orderable: false,
         targets: [0, 1, 2, 3, 4, 5]
       },
@@ -162,65 +161,34 @@
     ]
   });
 
-  // $(document).on('click', '.editEmployeeBtn', function(e) {
-  //   e.preventDefault();
-  //   var employee_id = $(this).data('id');
-  //   // alert(employee_id);
-  //   var url = "<?= route_to('get-employee') ?>";
-  //   $.get(url, {
-  //     employee_id: employee_id
-  //   }, function(response) {
-  //     var modal_title = 'Edit Employee';
-  //     var modal_btn_text = 'Save Changes';
-  //     var modal = $('body').find('div#edit-employee-modal');
-  //     modal.find('form').find('input[type="hidden"][name="employee_id"]').val(employee_id);
-  //     modal.find('.modal-title').html(modal_title);
-  //     modal.find('.modal-footer > button.action').html(modal_btn_text);
-  //     modal.find('input[type="text"]').val(response.data.name);
-  //     modal.find('span.error-text').html('');
-  //     modal.modal('show');
-  //   }, 'json');
-  // });
-
-  $('#update_employee_form').on('submit', function(e) {
+  //update employee modal
+  $(document).on('click', '.editEmployeeBtn', function(e) {
     e.preventDefault();
-    var csrfName = $('.ci_csrf_data').attr('name');
-    var csrfHash = $('.ci_csrf_data').val();
-    var form = this;
-    var modal = $('body').find('div#edit-employee-modal');
-    var formData = new FormData();
-    formData.append(csrfName, csrfHash);
-
-    $.ajax({
-      url: $(form).attr('action'),
-      method: $(form).attr('method'),
-      data: formData,
-      processData: false,
-      dataType: 'json',
-      contentType: false,
-      cache: false,
-      beforeSend: function() {
-        toastr.remove();
-        $(form).find('span.error-text');
-      },
-      success: function(response) {
-        $('.ci_csrf_data').val(response.token);
-
-        if ($.isEmptyObject(response.error)) {
-          if (response.status == 1) {
-            modal.modal('hide');
-            toastr.success(response.msg);
-            employees_DT.ajax.reload(null, false);
-          } else {
-            toastr.error(response.msg);
-          }
-        } else {
-          $.each(response.error, function(prefix, val) {
-            $(form).find('span.' + prefix + '_error').text(val);
-          });
-        }
-      }
-    });
+    var employee_id = $(this).data('id');
+    // alert(employee_id);
+    var url = "<?= route_to('get-employee') ?>";
+    $.get(url, {employee_id: employee_id}, function(response) {
+      var modal_title = 'Edit Employee';
+      var modal_btn_text = 'Update Info';
+      var modal = $('body').find('div#edit-employee-modal');
+      modal.find('form').find('input[type="hidden"][name="employee_id"]').val(employee_id);
+      modal.find('.modal-title').html(modal_title);
+      modal.find('.modal-footer > button.action').html(modal_btn_text);
+      modal.find('input[type="text"][name="emp_id_no"]').val(response.data.emp_id_no);
+      modal.find('input[type="text"][name="emp_firstname"]').val(response.data.emp_firstname);
+      modal.find('input[type="text"][name="emp_midname"]').val(response.data.emp_midname);
+      modal.find('input[type="text"][name="emp_lastname"]').val(response.data.emp_lastname);
+      modal.find('input[type="date"][name="emp_dob"]').val(response.data.emp_dob);
+      modal.find('input[type="text"][name="emp_pob"]').val(response.data.emp_pob);
+      modal.find('input[type="text"][name="emp_location_add"]').val(response.data.emp_location_add);
+      modal.find('input[type="text"][name="emp_email_add"]').val(response.data.emp_email_add);
+      modal.find('input[type="text"][name="emp_contact_no"]').val(response.data.emp_contact_no);
+      modal.find('span.error-text').html('');
+      modal.modal('show');
+    }, 'json');
   });
+
+  // Update Employee Modal form
+  
 </script>
 <?= $this->endSection() ?>
