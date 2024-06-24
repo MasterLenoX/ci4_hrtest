@@ -33,7 +33,7 @@ $routes->group('admin', static function ($routes) {
     $routes->get('get-employees','AdminController::getEmployees', ['as'=>'get-employees']);
     $routes->get('get-employee','AdminController::getEmployee',['as'=>'get-employee']);
     $routes->post('update-employee','AdminController::updateEmployee',['as'=>'update-employee']);
-    $routes->post('delete-employee','AdminController::deleteEmployee',['as'=>'delete-employee']);
+    $routes->get('delete-employee','AdminController::deleteEmployee',['as'=>'delete-employee']);
 
 
     //Department 

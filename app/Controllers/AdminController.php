@@ -10,6 +10,7 @@ use App\Models\UsersModel;
 use App\Models\SettingsModel;
 use App\Models\EmployeesModel;
 use App\Libraries\Hash;
+use PSpell\Config;
 use SSP;
 
 
@@ -507,13 +508,13 @@ class AdminController extends BaseController
         "db" => "emp_firstname",
         "dt" => 2
       ),
-      // array(
-      //   "db" => "emp_midname",
-      //   "dt" => 3
-      // ),
+      array(
+        "db" => "emp_midname",
+        "dt" => 3
+      ),
       array(
         "db" => "emp_lastname",
-        "dt" => 3
+        "dt" => 4
       ),
       // array(
       //   "db" => "emp_dob",
@@ -529,7 +530,7 @@ class AdminController extends BaseController
       // ),
       array(
         "db" => "emp_email_add",
-        "dt" => 4
+        "dt" => 5
       ),
       // array(
       //   "db" => "emp_contact_no",
@@ -537,21 +538,24 @@ class AdminController extends BaseController
       // ),
       array(
         "db" => "id",
-        "dt" => 5,
+        "dt" => 6,
         "formatter" => function ($d, $row) {
           return "<div class='btn-group'>
-            <button class='btn btn-success btn-sm rounded-pill p-2 mx-1 editEmployeeBtn' data-id='".$row['id']."'>
+            <button class='btn btn-success btn-sm rounded-pill p-2 mx-1 editEmployeeBtn' data-toggle='tooltip' title='Edit Info' data-id='" . $row['id'] . "'>
               <span class='micon ti-pencil-alt'></span>
             </button>
-            <button class='btn btn-danger btn-sm rounded-pill p-2 mx-1 deleteEmployeeBtn' data-id='".$row['id']."'>
+            <button class='btn btn-info btn-sm rounded-pill p-2 mx-1 viewEmployeeBtn' data-toggle='tooltip' title='View Info' data-id='" . $row['id'] . "'>
+              <span class='micon ti-search'></span>
+            </button>
+            <button class='btn btn-danger btn-sm rounded-pill p-2 mx-1 deleteEmployeeBtn' data-toggle='tooltip' title='Delete Info' data-id='" . $row['id'] . "'>
               <span class='micon ti-trash'></span>
             </button>
           </div>";
         }
       ),
       array(
-        "db"=>"ordering",
-        "dt"=>6
+        "db" => "ordering",
+        "dt" => 7
       )
     );
 
@@ -561,61 +565,106 @@ class AdminController extends BaseController
   }
 
   //get employee id for update
-  public function getEmployee(){
+  public function getEmployee()
+  {
     $request = \Config\Services::request();
 
-    if( $request->isAJAX() ){
+    if ($request->isAJAX()) {
       $id = $request->getVar('employee_id');
       $employee = new EmployeesModel();
       $employee_data = $employee->find($id);
-      return $this->response->setJSON(['data'=>$employee_data]);
+      return $this->response->setJSON(['data' => $employee_data]);
     }
-
   }
 
-  public function updateEmployee(){
+  public function updateEmployee()
+  {
     $request = \Config\Services::request();
 
-    if($request->isAJAX()){
-      $id = $request->getVar('id');
+    if ($request->iSAJAX()) {
+      $id = $request->getVar('employee_id');
       $validation = \Config\Services::validation();
 
       $this->validate([
-        'emp_id_no'=>[
-          'rules'=>'required|is_unique[employees.emp_id_no,'.$id.']',
-          'errors'=>[
-            'required'=>'Employee ID Number is required',
-            'is_unique'=>'Employee ID Number is already existed'
+        'emp_firstname' => [
+          'rules' => 'required',
+          'error' => [
+            'required' => 'Please update your first name'
           ]
         ],
+        'emp_midname' => [
+          'rules' => 'required',
+          'error' => [
+            'required' => 'Please update your middle name'
+          ]
+        ],
+        'emp_lastname' => [
+          'rules' => 'required',
+          'error' => [
+            'required' => 'Please update your last name'
+          ]
+        ],
+        'emp_email_add' => [
+          'rules' => 'required',
+          'error' => [
+            'required' => 'Please update your email'
+          ]
+        ],
+        'emp_contact_no' => [
+          'rules' => 'required',
+          'error' => [
+            'required' => 'Please update your contact no'
+          ]
+        ]
       ]);
 
-      if ( $validation->run() === FALSE ) {
-        $errors =  $validation->getErrors();
-        return $this->response->setJSON(['status'=>0,'token'=>csrf_hash(),'error'=>$errors]);
+      if ($validation->run() === FALSE) {
+        $errors = $validation->getErrors();
+        return $this->response->setJSON(['status' => 0, 'token' => csrf_hash(), 'error' => $errors]);
       } else {
-        // return $this->response->setJSON(['status'=>1,'token'=>csrf_hash(),'msg'=>'Form Validated....']);
+        # code...
+        // return $this->response->setJSON(['status'=> 1, 'token'=>csrf_hash(), 'msg'=>'I DONT FEAR YOU N**GA']);
         $employees = new EmployeesModel();
-        $update = $employees->where('id',$id)
-                            ->set([
-                              'emp_id_no' => $request->getVar(['emp_id_no']),
-                              'emp_firstname' => $request->getVar(['emp_firstname']),
-                              'emp_midname' => $request->getVar(['emp_midname']),
-                              'emp_lastname' => $request->getVar(['emp_lastname']),
-                              'emp_dob' => $request->getVar(['emp_dob']),
-                              'emp_pob' => $request->getVar(['emp_pob']),
-                              'emp_location_add' => $request->getVar(['emp_location_add']),
-                              'emp_email_add' => $request->getVar(['emp_email_add']),
-                              'emp_contact_no' => $request->getVar(['emp_contact_no']),
-                            ])->update();
-        if ( $update ) {
-          return $this->response->setJSON(['status'=>1, 'token'=>csrf_hash(), 'msg'=>'Employee Information has been updated successfully']);
+        $update = $employees->where('id', $id)
+          ->set([
+            'emp_id_no' => $request->getVar(['emp_id_no']),
+            'emp_firstname' => $request->getVar(['emp_firstname']),
+            'emp_midname' => $request->getVar(['emp_midname']),
+            'emp_lastname' => $request->getVar(['emp_lastname']),
+            'emp_dob' => $request->getVar(['emp_dob']),
+            'emp_pob' => $request->getVar(['emp_pob']),
+            'emp_location_add' => $request->getVar(['emp_location_add']),
+            'emp_email_add' => $request->getVar(['emp_email_add']),
+            'emp_contact_no' => $request->getVar(['emp_contact_no'])
+          ])->update();
+
+        if ($update) {
+          return $this->response->setJSON(['status' => 1, 'token' => csrf_hash(), 'msg' => 'Employee has been updated successfully']);
         } else {
-          return $this->response->setJSON(['status'=>0, 'token'=>csrf_hash(), 'msg'=>'Something went wrong in Updating']);
+          return $this->response->setJSON(['status' => 0, 'token' => csrf_hash(), 'msg' => 'Something went wrong']);
         }
       }
     }
   }
+
+  public function deleteEmployee()
+  {
+    $request = \Config\Services::request();
+
+    if ($request->isAJAX()) {
+      $id = $request->getVar('employee_id');
+      $employees = new EmployeesModel();
+      $delete = $employees->where('id', $id)->delete();
+      // $delete = $employees->delete($id);
+
+      if ($delete) {
+        return $this->response->setJSON(['status' => 1, 'msg' => 'Employee has been successfully deleted']);
+      } else {
+        return $this->response->setJSON(['status' => 0, 'msg' => 'Something went wrong']);
+      }
+    }
+  }
+
 
 
   // End of Employee Page

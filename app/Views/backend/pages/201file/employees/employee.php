@@ -47,7 +47,7 @@
                 <th scope="col">#</th>
                 <th scope="col">Employee ID</th>
                 <th scope="col">Employeee Firstname</th>
-                <!-- <th scope="col">Employeee Middlename</th> -->
+                <th scope="col">Employeee Middlename</th>
                 <th scope="col">Employeee Lastname</th>
                 <!-- <th scope="col">Date of Birth</th>
                 <th scope="col">Place of Birth</th> -->
@@ -149,15 +149,15 @@
     },
     columnDefs: [{
         orderable: false,
-        targets: [0, 1, 2, 3, 4, 5]
+        targets: [0, 1, 2, 3, 4, 5, 6]
       },
       {
         visible: false,
-        targets: 6
+        targets: 7
       }
     ],
     order: [
-      [6, 'asc']
+      [7, 'asc']
     ]
   });
 
@@ -167,7 +167,9 @@
     var employee_id = $(this).data('id');
     // alert(employee_id);
     var url = "<?= route_to('get-employee') ?>";
-    $.get(url, {employee_id: employee_id}, function(response) {
+    $.get(url, {
+      employee_id: employee_id
+    }, function(response) {
       var modal_title = 'Edit Employee';
       var modal_btn_text = 'Update Info';
       var modal = $('body').find('div#edit-employee-modal');
@@ -189,6 +191,79 @@
   });
 
   // Update Employee Modal form
-  
+  $('#update_employee_form').on('submit', function(e) {
+    e.preventDefault();
+    // alert('Employee Updated Successfully...');
+    var csrfName = $('.ci_csrf_data').attr('name');
+    var csrfHash = $('.ci_csrf_data').val();
+    var form = this;
+    var formData = new FormData(form);
+    formData.append(csrfName, csrfHash);
+
+    $.ajax({
+      url: $(form).attr('action'),
+      method: $(form).attr('method'),
+      data: formData,
+      processData: false,
+      dataType: 'json',
+      contentType: false,
+      cache: false,
+      beforeSend: function() {
+        toastr.remove();
+        $(form).find('span.error-text').text('');
+      },
+      success: function(response) {
+        //Update CSRF Hash
+        $('.ci_csrf_data').val(response.token);
+
+        if ($.isEmptyObject(response.error)) {
+          if (response.status == 1) {
+            $(form)[0].reset();
+            modal.modal('hide');
+            toastr.success(response.msg);
+            employees_DT.ajax.reload(null, false);
+          } else {
+            toastr.error(response.msg);
+          }
+        } else {
+          $.each(response.error, function(prefix, val) {
+            $(form).find('span.' + prefix + '_error').text(val);
+          });
+        }
+      }
+    });
+  });
+
+  $(document).on('click','.deleteEmployeeBtn', function(e){
+    e.preventDefault();
+    var employee_id = $(this).data('id');
+    var url = "<?= route_to('delete-employee') ?>";
+    // alert('Are you sure you want to delete this employee? '+ employee_id);
+    swal.fire({
+      title: 'Are you sure?',
+      html: 'You want to delete this employee',
+      showCloseButton: true,
+      showCancelButton: true,
+      cancelButtonText: 'Cancel',
+      confirmButtonText: 'Yes, Delete This',
+      cancelButtonColor: '#d32',
+      confirmButtonColor: '#3085d6',
+      width: 400,
+      allowOutsideClick: false
+    }).then(function(result){
+      if(result.value){
+        // alert('Employee is Now DELETED');
+        $.get(url, { employee_id:employee_id}, function(response){
+          if ( response.status == 1 ) {
+            employees_DT.ajax.reload(null, false);
+            toastr.success(response.msg);
+          } else {
+            toastr.error(response.msg);
+          }
+        }, 'json');
+      }
+    });
+  });
+
 </script>
 <?= $this->endSection() ?>

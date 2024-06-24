@@ -51,10 +51,14 @@
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 		<link rel="stylesheet" href="/extra-assets/ijabo/ijaboCropTool/ijaboCropTool.min.css">
 		<link rel="stylesheet" type="text/css" href="/backend/vendors/styles/style.css" />
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     
 		<?= $this->renderSection('stylesheets') ?>
-
-
+		<style>
+			.swal-popup{
+				font-size: .87em;
+			}
+		</style>
 	</head>
 	<body>
     <?php include('inc/header.php') ?>
@@ -80,6 +84,9 @@
 		<!-- toastr js -->
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 		<!-- ijaboCropTool -->
+		<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+    
+    <!-- Your script that uses swal -->
 		
     <?= $this->renderSection('scripts') ?>
 	</body>
