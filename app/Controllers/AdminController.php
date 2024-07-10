@@ -502,7 +502,10 @@ class AdminController extends BaseController
       ),
       array(
         "db" => "emp_id_no",
-        "dt" => 1
+        "dt" => 1,
+        "formatter"=> function($d,$row){
+          return "FFI - ".$row['emp_id_no']." ";
+        }
       ),
       array(
         "db" => "emp_firstname",
@@ -510,7 +513,10 @@ class AdminController extends BaseController
       ),
       array(
         "db" => "emp_midname",
-        "dt" => 3
+        "dt" => 3,
+        // "formatter"=>function($d, $row){
+        //   return substr($row['emp_middlename'], 0).".";
+        // }
       ),
       array(
         "db" => "emp_lastname",

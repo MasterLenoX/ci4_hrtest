@@ -47,7 +47,7 @@
                 <th scope="col">#</th>
                 <th scope="col">Employee ID</th>
                 <th scope="col">Employeee Firstname</th>
-                <th scope="col">Employeee Middlename</th>
+                <th scope="col">Employeee Middle Initial</th>
                 <th scope="col">Employeee Lastname</th>
                 <!-- <th scope="col">Date of Birth</th>
                 <th scope="col">Place of Birth</th> -->
@@ -68,6 +68,7 @@
 
 <?php include('empmodals/add_emp_modal.php') ?>
 <?php include('empmodals/edit_emp_modal.php') ?>
+<?php include('empmodals/view_emp_modal.php') ?>
 
 <?= $this->endSection() ?>
 <?= $this->section('stylesheets') ?>
@@ -234,6 +235,7 @@
     });
   });
 
+// Delete Button
   $(document).on('click','.deleteEmployeeBtn', function(e){
     e.preventDefault();
     var employee_id = $(this).data('id');
@@ -263,6 +265,29 @@
         }, 'json');
       }
     });
+  });
+
+  // View List Button
+  $(document).on('click', '.viewEmployeeBtn', function(e){
+    e.preventDefault();
+    var employee_id = $(this).data('id');
+    var url = "<?= route_to('get-employee') ?>";
+    $.get(url, {
+      employee_id: employee_id
+    }, function(response){
+      var modal_title = 'View Employee';
+      var modal = $('body').find('div#view-employee-modal');
+      modal.find('h3').val(response.data.emp_id_no);
+      modal.find().val(response.data.emp_firstname);
+      modal.find().val(response.data.emp_midname);
+      modal.find().val(response.data.emp_lastname);
+      modal.find().val(response.data.emp_dob);
+      modal.find().val(response.data.emp_pob);
+      modal.find().val(response.data.emp_location_add);
+      modal.find().val(response.data.emp_email_add);
+      modal.find().val(response.data.emp_contact_no);
+      modal.modal('show');
+    },'json');
   });
 
 </script>

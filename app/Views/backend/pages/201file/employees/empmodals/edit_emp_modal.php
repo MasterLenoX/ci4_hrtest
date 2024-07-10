@@ -61,7 +61,7 @@
         </div>
         <div class="form-group">
           <label for="">Contact No.</label>
-          <input type="text" name="emp_contact_no" class="form-control" placeholder="Enter Email Address">
+          <input type="text" name="emp_contact_no" class="form-control" placeholder="Enter Contact No.">
           <span class="text-danger error-text emp_contact_no_error"></span>
         </div>
       </div>

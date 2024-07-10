@@ -1,10 +1,11 @@
 <?php 
 
   use App\Libraries\CIAuth;
+  use App\Models\EmployeesModel;
   use App\Models\UsersModel;
   use App\Models\SettingsModel;
   use App\Models\SocialMediaModel;
-
+  use PSpell\Config;
 
 
   if ( !function_exists('get_user') ) {
@@ -43,7 +44,6 @@
   }
 
   if ( !function_exists('get_socmed')){
-
     function get_socmed(){
       $result = null;
       $socialmedia = new SocialMediaModel();
@@ -65,9 +65,35 @@
         $result = $socialmedia_data;
       }
       return $result;
-      
-
     }
+  }
 
+  if( !function_exists('get_employees')){
+    function get_employees(){
+      $result = null;
+      $employees = new EmployeesModel();
+      $employees_data = $employees->asObject()->first();
+
+      if ( !$employees_data ) {
+        $request = \Config\Services::request();
+        $data = array(
+          'emp_id_no' => $request->getVar(['emp_id_no']),
+          'emp_firstname' => $request->getVar(['emp_firstname']),
+          'emp_midname' => $request->getVar(['emp_midname']),
+          'emp_lastname' => $request->getVar(['emp_lastname']),
+          'emp_dob' => $request->getVar(['emp_dob']),
+          'emp_pob' => $request->getVar(['emp_pob']),
+          'emp_location_add' => $request->getVar(['emp_location_add']),
+          'emp_email_add' => $request->getVar(['emp_email_add']),
+          'emp_contact_no' => $request->getVar(['emp_contact_no']),
+        );
+        $employees_data = $employees->find($data);
+        
+      } else {
+        $result = $employees_data; 
+      }
+
+      
+    }
   }
 ?>

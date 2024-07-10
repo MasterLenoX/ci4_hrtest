@@ -13,7 +13,7 @@
         <input type="hidden" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>" class="ci_csrf_data">
         <div class="form-group">
           <label for="">Employee ID No.</label>
-          <input type="text" name="emp_id_no" class="form-control" placeholder="Enter Employee ID No">
+            <input type="text" name="emp_id_no" class="form-control" placeholder="Enter Employee ID No">
           <span class="text-danger error-text emp_id_no_error"></span>
         </div>
         <div class="row">
@@ -60,7 +60,7 @@
         </div>
         <div class="form-group">
           <label for="">Contact No.</label>
-          <input type="text" name="emp_contact_no" class="form-control" placeholder="Enter Email Address">
+          <input type="text" name="emp_contact_no" class="form-control" placeholder="Enter Contact No.">
           <span class="text-danger error-text emp_contact_no_error"></span>
         </div>
       </div>
