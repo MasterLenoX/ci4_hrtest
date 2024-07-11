@@ -88,11 +88,10 @@
           'emp_contact_no' => $request->getVar(['emp_contact_no']),
         );
         $employees_data = $employees->find($data);
-        
       } else {
         $result = $employees_data; 
       }
-
+      return $result;
       
     }
   }

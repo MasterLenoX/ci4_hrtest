@@ -275,17 +275,24 @@
     $.get(url, {
       employee_id: employee_id
     }, function(response){
-      var modal_title = 'View Employee';
+      // variables
+      var modal_title = 'Employee No. ' +  '<span class="text-danger"> FFI - ' + response.data.emp_id_no + '</span>';
       var modal = $('body').find('div#view-employee-modal');
-      modal.find('h3').val(response.data.emp_id_no);
-      modal.find().val(response.data.emp_firstname);
-      modal.find().val(response.data.emp_midname);
-      modal.find().val(response.data.emp_lastname);
-      modal.find().val(response.data.emp_dob);
-      modal.find().val(response.data.emp_pob);
-      modal.find().val(response.data.emp_location_add);
-      modal.find().val(response.data.emp_email_add);
-      modal.find().val(response.data.emp_contact_no);
+      var h4_empdob = 'Date of Birth: ' + '<p><span class="text-dark font-weight-normal">' + response.data.emp_dob + '</span></p>';
+      var h3_empname = 'Full Name: ' + '<p><span class="text-dark font-weight-normal"><span class="text-uppercase">'+ response.data.emp_lastname + ',</span> ' + response.data.emp_firstname + ' ' + response.data.emp_midname[0] + '. </span></p>'; 
+      var h3_emppob = 'Place of Birth: ' + '<p><span class="text-dark font-weight-normal">' + response.data.emp_pob + '</span></p>'; 
+      var h3_emplocation = 'Location Address: ' + '<p><span class="text-dark font-weight-normal">' + response.data.emp_location_add + '</span></p>';
+      var h3_empemail = 'Email Address: ' + '<p><span class="text-dark font-weight-normal">' + response.data.emp_email_add + '</span></p>';
+      var h3_empphone = 'Contact No. :' + '<p><span class="text-dark font-weight-normal">' + response.data.emp_contact_no + '</span></p>';
+
+      // modal find
+      modal.find('.modal-title').html(modal_title);
+      modal.find('#text-emp_fullname').html(h3_empname);
+      modal.find('#text-emp_dob').html(h4_empdob);
+      modal.find('#text-emp_pob').html(h3_emppob);
+      modal.find('#text-emp_location').html(h3_emplocation);
+      modal.find('#text-emp_email').html(h3_empemail);
+      modal.find('#text-emp_phone').html(h3_empphone);
       modal.modal('show');
     },'json');
   });
