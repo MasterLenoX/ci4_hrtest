@@ -19,13 +19,13 @@
           <img src="<?= get_user()->picture == null ? '/images/users/aidenpearce.jpg' : '/images/users/' . get_user()->picture ?>" alt="" class="avatar-photo ci-avatar-photo">
         </div>
         <div class="row p-2">
-          <div class="col-sm-4 p-4">
+          <div class="col-sm-4 p-4 my-1">
             <h5 class="text-primary" id="text-emp_fullname"></h5>
           </div>
-          <div class="col-sm-4 p-4">
+          <div class="col-sm-4 p-4 my-1">
             <h5 class="text-primary" id="text-emp_dob"></h5>
           </div>
-          <div class="col-sm-4 p-4">
+          <div class="col-sm-4 p-4 my-1">
             <h5 class="text-primary" id="text-emp_pob"></h5>
           </div>
         </div>
@@ -39,13 +39,13 @@
           </div>
         </div> -->
         <div class="row p-2">
-          <div class="col-sm p-4">
+          <div class="col-sm p-4 my-1">
             <h5 class="text-primary" id="text-emp_location"></h5>
           </div>
-          <div class="col-sm p-4">
+          <div class="col-sm p-4 my-1">
             <h5 class="text-primary" id="text-emp_email"></h5>
           </div>
-          <div class="col-sm p-4">
+          <div class="col-sm p-4 my-1">
             <h5 class="text-primary" id="text-emp_phone"></h5>
           </div>
         </div>

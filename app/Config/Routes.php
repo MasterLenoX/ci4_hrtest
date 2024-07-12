@@ -38,7 +38,7 @@ $routes->group('admin', static function ($routes) {
 
     //Department 
     $routes->get('department', 'AdminController::department', ['as' => 'department']);
-
+    $routes->post('add-department','AdminController::addDepartment',['as'=>'add-department']);
     
     //Organzation 
     $routes->get('organization', 'AdminController::organization', ['as' => 'organization']);

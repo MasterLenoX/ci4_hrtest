@@ -670,9 +670,6 @@ class AdminController extends BaseController
       }
     }
   }
-
-
-
   // End of Employee Page
 
 
@@ -685,6 +682,11 @@ class AdminController extends BaseController
     );
     return view('backend/pages/201file/department/department', $data);
   }
+
+  // Add Department
+  
+  // Edit Department
+  // Delete Department
 
   //Organization Page
   public function organization()
