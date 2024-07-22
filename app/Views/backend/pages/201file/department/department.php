@@ -63,6 +63,8 @@
 </div>
 
 <?php include('deptmodals/add_dept_modal.php') ?>
+<?php include('deptmodals/view_dept_modal.php') ?>
+<?php include('deptmodals/edit_dept_modal.php') ?>
 
 <?= $this->endSection() ?>
 
@@ -77,6 +79,7 @@
 <script src="/backend/src/plugins/datatables/js/dataTables.responsive.min.js"></script>
 <script src="/backend/src/plugins/datatables/js/responsive.bootstrap4.min.js"></script>
 <script>
+
   $(document).on('click','#add_dept_btn', function(e){
     e.preventDefault();
     // alert('Department Modal appears');
@@ -88,6 +91,58 @@
     modal.find('input.error_text').html('');
     modal.find('input[type="text"]').val('');
     modal.modal('show');
+  });
+
+  $('#add_dept_form').on('submit', function(e){
+    e.preventDefault();
+    // alert('Department Added Successfully');
+    var csrfName = $('.ci_csrf_data').attr('name');
+    var csrfHash = $('.ci_csrf_data').val();
+    var form = this;
+    var modal = $('body').find('div#department-modal');
+    var formData = new FormData(form);
+    formData.append(csrfName, csrfHash);
+
+    $.ajax({
+      url: $(form).attr('action'),
+      method: $(form).attr('method'),
+      data: formData,
+      processData: false,
+      dataType: 'json',
+      contentType: false,
+      cache: false,
+      beforeSend: function(){
+        toastr.remove();
+        $(form).find('span.error-text').text('');
+      },
+      success: function(response){
+        // Update csrf Hash
+        $('.ci_csrf_data').val(response.token);
+
+        if ( $.isEmptyObject(response.error) ) {
+          if ( response.status == 1 ) {
+            $(form)[0].reset();
+            modal.modal('hide');
+            toastr.success(response.msg);
+            // department_DT.ajax.reload(null, false);
+          } else {
+            toastr.error(response.msg);
+          }
+        } else {
+          $.each(response.error, function(prefix, val){
+            $(form).find('span.'+prefix+'_error').text(val);
+          });
+        }
+      }
+    });
+  });
+
+  //Retrieve Department Table
+  var department_DT = $('#department-table').DataTable({
+    processing: true,
+    serverside: true,
+    ajax: "<?= route_to('get-department') ?>",
+    dom: "Brtip",
   });
 
   

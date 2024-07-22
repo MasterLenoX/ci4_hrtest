@@ -39,7 +39,11 @@ $routes->group('admin', static function ($routes) {
     //Department 
     $routes->get('department', 'AdminController::department', ['as' => 'department']);
     $routes->post('add-department','AdminController::addDepartment',['as'=>'add-department']);
-    
+    $routes->get('get-department','AdminController::getDepartment',['as'=>'get-department']);
+    $routes->get('get-dept','AdminController::getDept',['as'=>'get-dept']);
+    $routes->post('update-department','AdminController::updateDepartment',['as'=>'update-department']);
+    $routes->get('delete-department','AdminController::deleteDepartment',['as'=>'delete-department']);
+
     //Organzation 
     $routes->get('organization', 'AdminController::organization', ['as' => 'organization']);
 

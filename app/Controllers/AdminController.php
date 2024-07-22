@@ -684,7 +684,40 @@ class AdminController extends BaseController
   }
 
   // Add Department
-  
+  public function addDepartment(){
+   $request = \Config\Services::request();
+
+   if($request->isAJAX()){
+      $validation = \Config\Services::validation();
+
+      $this->validate([
+        'dept_id_no'=>[
+          'rules'=>'required',
+          'errors'=>[
+            'required'=>'Please enter Department ID No.'
+          ]
+        ],
+        'dept_code'=>[
+          'rules'=>'required',
+          'errors'=>[
+            'required'=>'Please enter Department Code.'
+          ]
+        ],
+        'dept_name'=>[
+          'rules'=>'required',
+          'errors'=>[
+            'required'=>'Please enter Department Name.'
+          ]
+        ]
+      ]);
+
+      if($validation ->run() === FALSE ){
+        $errors = $validation->getErrors();
+        
+      }
+   }
+
+  }
   // Edit Department
   // Delete Department
 

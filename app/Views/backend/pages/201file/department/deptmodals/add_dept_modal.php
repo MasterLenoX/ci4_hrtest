@@ -1,4 +1,4 @@
-<div class="modal fade bs-example-modal-lg" id="deptmartment-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" style="display: none;" aria-hidden="true" data-backdrop="static">
+<div class="modal fade bs-example-modal-lg" id="department-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" style="display: none;" aria-hidden="true" data-backdrop="static">
   <div class="modal-dialog modal-lg modal-dialog-centered">
     <form class="modal-content" action="<?= route_to('add-department') ?>" method="post" id="add_dept_form">
       <div class="modal-header">
@@ -34,7 +34,7 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">
           Close
         </button>
         <button type="submit" class="btn btn-primary action">
