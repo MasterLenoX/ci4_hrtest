@@ -42,7 +42,7 @@
           </div>
         </div>
         <div class="card-body">
-          <table class="table table-sm table-borderless table-hover table-striped" id="employee-table">
+          <table class="table table-sm table-borderless table-hover table-striped" id="department-table">
             <thead>
               <tr>
                 <th scope="col">#</th>
@@ -83,7 +83,7 @@
   $(document).on('click','#add_dept_btn', function(e){
     e.preventDefault();
     // alert('Department Modal appears');
-    var modal = $('body').find('div#deptmartment-modal');
+    var modal = $('body').find('div#department-modal');
     var modal_title = 'Add Department';
     var modal_btn_text = 'Create';
     modal.find('.modal-title').html(modal_title);
@@ -124,7 +124,7 @@
             $(form)[0].reset();
             modal.modal('hide');
             toastr.success(response.msg);
-            // department_DT.ajax.reload(null, false);
+            department_DT.ajax.reload(null, false);
           } else {
             toastr.error(response.msg);
           }
@@ -140,10 +140,29 @@
   //Retrieve Department Table
   var department_DT = $('#department-table').DataTable({
     processing: true,
-    serverside: true,
+    serverSide: true,
     ajax: "<?= route_to('get-department') ?>",
     dom: "Brtip",
+    info: true,
+    fnCreatedRow: function(row, data, index) {
+      $('td', row).eq(0).html(index + 1);
+    },
+    columnDefs: [{
+        orderable: false,
+        targets: [0, 1, 2, 3, 4, 5]
+      },
+      {
+        visible: false,
+        targets: 6
+      }
+    ],
+    order: [
+      [6, 'asc']
+    ]
   });
+
+
+
 
   
 </script>

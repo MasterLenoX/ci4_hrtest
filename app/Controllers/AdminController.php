@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
+use App\Models\DepartmentModel;
 use App\Models\SocialMediaModel;
 use CodeIgniter\HTTP\ResponseInterface;
 use App\Libraries\CIAuth;
@@ -503,8 +504,8 @@ class AdminController extends BaseController
       array(
         "db" => "emp_id_no",
         "dt" => 1,
-        "formatter"=> function($d,$row){
-          return "FFI - ".$row['emp_id_no']." ";
+        "formatter" => function ($d, $row) {
+          return "FFI - " . $row['emp_id_no'] . " ";
         }
       ),
       array(
@@ -675,8 +676,7 @@ class AdminController extends BaseController
 
 
   //Department Page
-  public function department()
-  {
+  public function department(){
     $data = array(
       'pageTitle' => 'Department Page || CI4 HRIS Test'
     );
@@ -684,40 +684,129 @@ class AdminController extends BaseController
   }
 
   // Add Department
-  public function addDepartment(){
-   $request = \Config\Services::request();
+  public function addDepartment()
+  {
+    $request = \Config\Services::request();
 
-   if($request->isAJAX()){
+    if ($request->isAJAX()) {
       $validation = \Config\Services::validation();
 
       $this->validate([
-        'dept_id_no'=>[
-          'rules'=>'required',
-          'errors'=>[
-            'required'=>'Please enter Department ID No.'
+        'dept_id_no' => [
+          'rules' => 'required',
+          'errors' => [
+            'required' => 'Please enter Department ID No.'
           ]
         ],
-        'dept_code'=>[
-          'rules'=>'required',
-          'errors'=>[
-            'required'=>'Please enter Department Code.'
+        'dept_code' => [
+          'rules' => 'required',
+          'errors' => [
+            'required' => 'Please enter Department Code.'
           ]
         ],
-        'dept_name'=>[
-          'rules'=>'required',
-          'errors'=>[
-            'required'=>'Please enter Department Name.'
+        'dept_name' => [
+          'rules' => 'required',
+          'errors' => [
+            'required' => 'Please enter Department Name.'
           ]
         ]
       ]);
 
-      if($validation ->run() === FALSE ){
+      if ($validation->run() === FALSE) {
         $errors = $validation->getErrors();
-        
-      }
-   }
+        return $this->response->setJSON(['status' => 0, 'token' => csrf_hash(), 'error' => $errors]);
+      } else {
 
+        $department = new DepartmentModel();
+        $save = $department->save([
+          'dept_id_no' => $request->getVar(['dept_id_no']),
+          'dept_code' => $request->getVar(['dept_code']),
+          'dept_name' => $request->getVar(['dept_name']),
+        ]);
+
+        if ($save) {
+          return $this->response->setJSON(['status' => 1, 'token' => csrf_hash(), 'msg' => 'New Department has been created successfully']);
+        } else {
+          return $this->response->setJSON(['status' => 0, 'token' => csrf_hash(), 'msg' => 'Something went wrong']);
+        }
+      }
+    }
   }
+
+  // View Department List
+  public function getDepartment(){
+
+    //DB Details
+    $dbDetails = array(
+      "host" => $this->db->hostname,
+      "user" => $this->db->username,
+      "pass" => $this->db->password,
+      "db" => $this->db->database
+    );
+
+    $table = "departments";
+    $primarykey = "id";
+    $columns = array(
+      array(
+        "db" => "id",
+        "dt" => 0
+      ),
+      array(
+        "db" => "dept_id_no",
+        "dt" => 1,
+        "formatter" => function ($d, $row) {
+          return "FFI - " . $row['dept_id_no'] . " ";
+        }
+      ),
+      array(
+        "db" => "dept_code",
+        "dt" => 2
+      ),
+      array(
+        "db" => "dept_name",
+        "dt" => 3,
+      ),
+      array(
+        "db" => "id",
+        "dt" => 4,
+        "formatter" => function ($d, $row) {
+          return "<div class='btn-group'>
+            <button class='btn btn-success btn-sm rounded-pill p-2 mx-1 editDepartmentBtn' data-toggle='tooltip' title='Edit Info' data-id='" . $row['id'] . "'>
+              <span class='micon ti-pencil-alt'></span>
+            </button>
+            <button class='btn btn-info btn-sm rounded-pill p-2 mx-1 viewDepartmentBtn' data-toggle='tooltip' title='View Info' data-id='" . $row['id'] . "'>
+              <span class='micon ti-search'></span>
+            </button>
+            <button class='btn btn-danger btn-sm rounded-pill p-2 mx-1 deleteDepartmentBtn' data-toggle='tooltip' title='Delete Info' data-id='" . $row['id'] . "'>
+              <span class='micon ti-trash'></span>
+            </button>
+          </div>";
+        }
+      ),
+      array(
+        "db" => "ordering",
+        "dt" => 5
+      )
+    );
+
+    return json_encode(
+      SSP::simple($_GET, $dbDetails, $table, $primarykey, $columns)
+    );
+  }
+
+  // get department id
+  public function getDept(){
+    $request = \Config\Services::request();
+
+    if ($request->isAJAX()) {
+      $id = $request->getVar('department_id');
+      $department = new DepartmentModel();
+      $department_data = $department->find($id);
+      return $this->response->setJSON(['data' => $department_data]);
+    } 
+  }
+
+
   // Edit Department
   // Delete Department
 

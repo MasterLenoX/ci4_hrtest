@@ -71,10 +71,12 @@
 <?php include('empmodals/view_emp_modal.php') ?>
 
 <?= $this->endSection() ?>
+
 <?= $this->section('stylesheets') ?>
 <link rel="stylesheet" href="/backend/src/plugins/datatables/css/dataTables.bootstrap4.min.css">
 <link rel="stylesheet" href="/backend/src/plugins/datatables/css/responsive.bootstrap4.min.css">
 <?= $this->endSection() ?>
+
 <?= $this->section('scripts') ?>
 <script src="/backend/src/plugins/datatables/js/jquery.dataTables.min.js"></script>
 <script src="/backend/src/plugins/datatables/js/dataTables.bootstrap4.min.js"></script>
