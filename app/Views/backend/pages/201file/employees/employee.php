@@ -170,9 +170,7 @@
     var employee_id = $(this).data('id');
     // alert(employee_id);
     var url = "<?= route_to('get-employee') ?>";
-    $.get(url, {
-      employee_id: employee_id
-    }, function(response) {
+    $.get(url, {employee_id: employee_id}, function(response) {
       var modal_title = 'Edit Employee';
       var modal_btn_text = 'Update Info';
       var modal = $('body').find('div#edit-employee-modal');

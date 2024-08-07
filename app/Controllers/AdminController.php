@@ -673,8 +673,6 @@ class AdminController extends BaseController
   }
   // End of Employee Page
 
-
-
   //Department Page
   public function department(){
     $data = array(
@@ -806,9 +804,74 @@ class AdminController extends BaseController
     } 
   }
 
-
   // Edit Department
+  public function updateDepartment(){
+    $request = \Config\Services::request();
+
+    if( $request->isAJAX() ){
+      $id = $request->getVar('department_id');
+      $validation = \Config\Services::validation();
+
+      $this->validate([
+        // 'dept_id_no' => [
+        //   'rules' => 'required',
+        //   'errors' => [
+        //     'required' => 'Please edit Department ID No.'
+        //   ]
+        // ],
+        'dept_code' => [
+          'rules' => 'required',
+          'errors' => [
+            'required' => 'Please edit Department Code.'
+          ]
+        ],
+        'dept_name' => [
+          'rules' => 'required',
+          'errors' => [
+            'required' => 'Please edit Department Name.'
+          ]
+        ]
+      ]);
+
+      if ( $validation->run() === FALSE ) {
+        $errors = $validation->getErrors();
+        return $this->response->setJSON(['status'=>0,'token'=>csrf_hash(), 'error'=>$errors]);
+      } else {
+        // return $this->response->setJSON(['status' => 1, 'token' => csrf_hash(), 'msg' => 'I DONT FEAR YOU NIGGA']);
+        $department = new DepartmentModel();
+        $update = $department->where('id',$id)
+                             ->set([
+                              'dept_id_no' => $request->getVar(['dept_id_no']),
+                              'dept_code' => $request->getVar(['dept_code']),
+                              'dept_name' => $request->getVar(['dept_name'])        
+                             ])->update();  
+        if ( $update ) {
+          return $this->response->setJSON(['status' => 1, 'token' => csrf_hash(), 'msg' => 'Department has been updated successfully']);
+        } else {
+          return $this->response->setJSON(['status' => 0, 'token' => csrf_hash(), 'msg' => 'Something went wrong']);
+        }
+        
+      }
+      
+    }
+  }
+
   // Delete Department
+  public function deleteDepartment(){
+    $request = \Config\Services::request();
+
+    if ( $request->isAJAX() ) {
+      $id = $request->getVar('department_id');
+      $department = new DepartmentModel();
+      $delete = $department->where('id',$id)->delete();
+      
+      if ( $delete ) {
+        return $this->response->setJSON(['status'=>1, 'msg'=>'Department has been successfully deleted']);
+      } else {
+        return $this->response->setJSON(['status'=>0, 'msg'=>'Something went wrong']);
+      }
+    }
+  }
 
   //Organization Page
   public function organization()
@@ -818,4 +881,11 @@ class AdminController extends BaseController
     );
     return view('backend/pages/201file/organization/organization', $data);
   }
+
+  // Add Organization
+  // View Organization
+  // Edit Organization
+  // Delete Organization
+
+
 }
