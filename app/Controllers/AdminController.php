@@ -429,12 +429,12 @@ class AdminController extends BaseController
             'required' => 'Please, Enter your First Name'
           ]
         ],
-        'emp_midname' => [
-          'rules' => 'required',
-          'errors' => [
-            'required' => 'Please, Enter your Middle Name'
-          ]
-        ],
+        // 'emp_midname' => [
+        //   'rules' => 'required',
+        //   'errors' => [
+        //     'required' => 'Please, Enter your Middle Name'
+        //   ]
+        // ],
         'emp_lastname' => [
           'rules' => 'required',
           'errors' => [
@@ -599,12 +599,12 @@ class AdminController extends BaseController
             'required' => 'Please update your first name'
           ]
         ],
-        'emp_midname' => [
-          'rules' => 'required',
-          'error' => [
-            'required' => 'Please update your middle name'
-          ]
-        ],
+        // 'emp_midname' => [
+        //   'rules' => 'required',
+        //   'error' => [
+        //     'required' => 'Please update your middle name'
+        //   ]
+        // ],
         'emp_lastname' => [
           'rules' => 'required',
           'error' => [
@@ -813,12 +813,12 @@ class AdminController extends BaseController
       $validation = \Config\Services::validation();
 
       $this->validate([
-        // 'dept_id_no' => [
-        //   'rules' => 'required',
-        //   'errors' => [
-        //     'required' => 'Please edit Department ID No.'
-        //   ]
-        // ],
+        'dept_id_no' => [
+          'rules' => 'required',
+          'errors' => [
+            'required' => 'Please edit Department ID No.'
+          ]
+        ],
         'dept_code' => [
           'rules' => 'required',
           'errors' => [
@@ -886,6 +886,5 @@ class AdminController extends BaseController
   // View Organization
   // Edit Organization
   // Delete Organization
-
 
 }
