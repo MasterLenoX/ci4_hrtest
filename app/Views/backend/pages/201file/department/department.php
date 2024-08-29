@@ -224,6 +224,8 @@
     });
   });
 
+  
+
 
   // Delete button function
   $(document).on('click','.deleteDepartmentBtn', function(e){
