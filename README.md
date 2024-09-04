@@ -1,3 +1,15 @@
+**CodeIgniter 4 HRIS Fisherfarms test**
+-- test_admin@fisherfarms.ph
+-- Testadmin
+-- TEST
+-- Password12345@
+-- Testadmin12345@
+
+
+
+
+
+
 # CodeIgniter 4 Development
 
 [![PHPUnit](https://github.com/codeigniter4/CodeIgniter4/actions/workflows/test-phpunit.yml/badge.svg)](https://github.com/codeigniter4/CodeIgniter4/actions/workflows/test-phpunit.yml)
